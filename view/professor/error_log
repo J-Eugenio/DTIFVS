@@ -1,0 +1,2 @@
+[19-Jan-2018 17:43:40 America/Chicago] PHP Fatal error:  Class 'Usuario' not found in /home/wwwnexasfvscom/public_html/dti/view/professor/alterar-senha.php on line 6
+[25-Jan-2018 05:55:20 America/Chicago] PHP Warning:  PDOStatement::execute(): SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/wwwnexasfvscom/public_html/dti/model/Reserva.class.php on line 58
