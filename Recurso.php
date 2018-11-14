@@ -46,24 +46,5 @@ class Recurso extends Model
 
 
 
-Natan Silva Ferreira
-Tatiana
-Leonardo
-Breno
-Karlos
-Silvilane
-Valdemiro
-Ana Paula
-Carlos César
-Maryo
-Andrei
-Gustavo
-Nielson
-Lucas
-Luan
-Johnatan
-Hugo
-Cícero
-Simão
-Flávio
-Moysés
+
+
