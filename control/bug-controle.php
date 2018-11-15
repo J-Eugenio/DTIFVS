@@ -13,29 +13,23 @@ $ajax = isset($_GET['ajax']);
 
 if($usuario_inst->possuiAcessoProfessor()){
   switch ($acao) {
-    case 'atualiza-bug':
+    case 'cadastrar-bug':
     $dados = array(
       'titulo' => $_POST['titulo'],
       'descricao' => $_POST['descricao'],
       'status' => 0
     );
-
     $rsp = $bug_inst->cadastraBug($dados);
-
     if($ajax){
       echo json_encode($rsp);
     }
-
     break;
 
     case 'buscar-bug':
-
     $lista = $bug_inst->buscaBugProfLogado($_POST['termo']);
-
     if($ajax){
       echo json_encode($lista);
     }
-
     break;
   }
 }

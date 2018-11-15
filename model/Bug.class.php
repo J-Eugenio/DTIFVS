@@ -53,7 +53,7 @@ class Bug{
       $prep->bindValue(1, '%'.$termo.'%');
       $prep->bindValue(2, '%'.$termo.'%');
       $prep->bindValue(3, '%'.$termo.'%');
-      $prep->bindValue(4, 1);
+      $prep->bindValue(4, 0);
 	  
       $prep->execute();
 

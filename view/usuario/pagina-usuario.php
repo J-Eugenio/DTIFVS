@@ -234,7 +234,7 @@ $usu_logado = $usu_inst->getUsuarioLogado();
           <div class="notice-board">
             <div class="panel panel-primary table-ajustes">
               <div class="panel-heading">
-                Tabela de solicitações
+                Suporte a Equipamentos
               </div>
               <div class="form-group" style="margin: 8px 10px;">
                 <form id="form-busca-bugs">
@@ -292,8 +292,8 @@ $usu_logado = $usu_inst->getUsuarioLogado();
                       var btnMudarStatus = $('<button class="btn"></button>');
                       btnMudarStatus.attr('id-bug', valor.idBug);
 
-                      <?php if($usu_inst->possuiAcessoAdm()): ?>
-
+                      <?php if($usu_inst->possuiAcessoAdm()):?>
+                      
                       btnMudarStatus.click(function(){
                         var self = $(this);
 
@@ -364,65 +364,6 @@ $usu_logado = $usu_inst->getUsuarioLogado();
               </script>
             </div>
           </div>
-          <?php if($usu_inst->possuiAcessoProfessor()): ?>
-            <div class="Compose-Message">
-              <div class="panel panel-primary">
-                <div class="panel-heading">
-                  <span class="fa fa-flag"></span> Realizar solicitação
-                </div>
-                <form id="form-registra-bug">
-                  <div class="panel-body">
-                    <div class="form-group">
-                      <label>Título : </label>
-                      <input name="titulo" type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                      <label>Descrição :  </label>
-                      <textarea name="descricao" rows="9" class="form-control"></textarea>
-                    </div>
-                    <hr />
-                    <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Enviar</Button>
-                      <button type="reset" class="btn btn-warning"><span class="fa fa-remove"></span> Cancelar</Button>
-                      </div>
-                    </form>
-
-                    <script>
-                    $('#form-registra-bug').validate({
-                      rules: {
-                        titulo: {required: true},
-                        descricao: {required: true}
-                      },
-                      messages:{
-                        titulo: { required: 'Defina um título.'},
-                        descricao: { required: 'Defina uma descrição.'},
-                      },
-                      errorClass: "alert alert-danger",
-                      errorElement: "div",
-
-                      submitHandler : function(form){
-                        var dados = $(form).serialize();
-
-                        $.ajax({
-                          type: "POST",
-                          url: "<?php echo URL_BASE;?>"+
-                          "/control/bug-controle.php?acao=atualiza-bug&ajax=true",
-                          data: dados,
-                          dataType: 'json',
-                          success: function(res){
-
-                            $('#form-registra-bug .panel-body').msgRapida().abrir(res.result, res.mensagem);
-                            atualizaTabSolicitacoes('');
-                            form.reset();
-                          }
-                        });
-
-                        return false;
-                      }
-                    });
-                    </script>
-                  </div>
-                </div>
-              <?php endif; ?>
             </div>
           </div>
         </div>

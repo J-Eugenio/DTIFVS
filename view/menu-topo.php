@@ -58,28 +58,29 @@
               <?php if($usu_inst->estaLogado()): ?>
 
                   <?php if($usu_inst->possuiAcessoProfessor()): ?>
-				<li><a class="menu-top-active" href="<?php echo URL_BASE ?>/view/usuario/pagina-usuario.php">
-                  <i class="fa fa-home" aria-hidden="true"></i><span> Página inicial</span></a></li>
+				            <li><a class="menu-top-active" href="<?php echo URL_BASE ?>/view/usuario/pagina-usuario.php">
+                        <i class="fa fa-home" aria-hidden="true"></i><span> Página inicial</span></a></li>
                     <li><a href="<?php echo URL_BASE ?>/view/professor/realizar-reserva.php">
-                      <i class="fa fa-archive" aria-hidden="true"></i><span> Reservar Equipamento</span></a></li>
+                        <i class="fa fa-archive" aria-hidden="true"></i><span> Reservar Equipamento</span></a></li>
                     <li><a href="<?php echo URL_BASE ?>/view/professor/minhas-reservas.php">
                         <i class="fa fa-bars" aria-hidden="true"></i><span> Minhas Reservas</span></a></li>
-					<li><a href="<?php echo URL_BASE ?>/view/usuario/alterar-senha.php">
+					          <li><a href="<?php echo URL_BASE ?>/view/usuario/alterar-senha.php">
                         <i class="fa fa-lock" aria-hidden="true"></i><span> Alterar Senha</span></a></li>
-
+                    <li><a href="<?php echo URL_BASE ?>/view/usuario/suporte.php">
+                        <i class="fa fa-lock" aria-hidden="true"></i><span> Suporte de equipamentos</span></a></li>
                       <?php endif;
                       if($usu_inst->possuiAcessoAdm()):
                         ?>
 										<li><a class="menu-top-active" href="<?php echo URL_BASE ?>/view/usuario/pagina-usuario.php">
-                  <i class="fa fa-home" aria-hidden="true"></i><span> Página inicial</span></a></li>
-                        <li><a href="<?php echo URL_BASE ?>/view/administrador/reservas-dia.php">
-                          <i class="fa fa-calendar" aria-hidden="true"></i><span> Reservas para hoje</span></a></li>
-						<li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-usuarios.php">
-						<i class="fa fa-users" aria-hidden="true"></i><span> Usuários</span></a></li>
-                          <li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-equipamento.php">
-                            <i class="fa fa-search" aria-hidden="true"></i><span> Buscar Equipamentos</span></a></li>
-                          <li><a href="<?php echo URL_BASE ?>/view/administrador/formulario-equipamento.php">
-                            <i class="fa fa-plus" aria-hidden="true"></i><span> Cadastrar Equipamento</span></a></li>
+                        <i class="fa fa-home" aria-hidden="true"></i><span> Página inicial</span></a></li>
+                    <li><a href="<?php echo URL_BASE ?>/view/administrador/reservas-dia.php">
+                        <i class="fa fa-calendar" aria-hidden="true"></i><span> Reservas para hoje</span></a></li>
+						        <li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-usuarios.php">
+						            <i class="fa fa-users" aria-hidden="true"></i><span> Usuários</span></a></li>
+                    <li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-equipamento.php">
+                        <i class="fa fa-search" aria-hidden="true"></i><span> Buscar Equipamentos</span></a></li>
+                    <li><a href="<?php echo URL_BASE ?>/view/administrador/formulario-equipamento.php">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span> Cadastrar Equipamento</span></a></li>
                          <!-- <li><a href="<?php echo URL_BASE ?>/view/usuario/alterar-senha.php">
                             <i class="fa fa-lock" aria-hidden="true"></i><span> Alterar Senha</span></a></li> -->
                           <?php endif; ?>
