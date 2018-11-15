@@ -48,7 +48,7 @@ class Bug{
       $prep = $conec->prepare('SELECT t_bug.*, t_usu.nome AS nome_usu '.
       'FROM bug t_bug INNER JOIN usuario t_usu ON t_bug.usuario = t_usu.id '.
       'AND (t_bug.titulo LIKE? OR t_bug.descricao LIKE? or t_usu.nome LIKE?)'.
-	  'AND t_bug.status = ? LIMIT 20');
+	  'AND t_bug.status = ? ORDER BY t_bug.status LIMIT 20 ');
 
       $prep->bindValue(1, '%'.$termo.'%');
       $prep->bindValue(2, '%'.$termo.'%');
@@ -71,7 +71,7 @@ class Bug{
 
       $prep = $conec->prepare('SELECT t_bug.*, t_usu.nome AS nome_usu '.
       'FROM bug t_bug INNER JOIN usuario t_usu ON t_bug.usuario = t_usu.id '.
-      'AND t_bug.usuario = ? AND (t_bug.titulo LIKE? OR t_bug.descricao LIKE? or t_usu.nome LIKE?) LIMIT 20');
+      'AND t_bug.usuario = ? AND (t_bug.titulo LIKE? OR t_bug.descricao LIKE? or t_usu.nome LIKE?) ORDER BY t_bug.status LIMIT 20 ');
 
       $prep->bindValue(1, $_SESSION['USER_ID']);
       $prep->bindValue(2, '%'.$termo.'%');
