@@ -65,6 +65,38 @@ class Reserva{
       return null;
     }
   }
+  public function getEntregues($termo, $res_por_pagina, $pagina_atual){
+    try {
+      $conn = $this->conn;
+      $conec = $conn->getConexao();
+
+      $query = 'SELECT tb_res.*, tb_equip.nome AS equip_nome,'.
+      'tb_dev.datadevolucao, tb_dev.horadevolucao, tb_dev.idDevolucao, tb_prof.nome AS nome_professor'.
+      ' FROM reserva tb_res INNER JOIN recurso tb_equip ON tb_res.equipamento = tb_equip.id '.
+      ' INNER JOIN usuario tb_prof ON tb_prof.id = '.
+      'tb_res.usuario LEFT JOIN devolucao tb_dev ON tb_res.id = tb_dev.reserva WHERE '.
+      '(tb_equip.nome LIKE? OR tb_prof.nome LIKE?) AND tb_dev.idDevolucao IS NULL';
+
+
+	  
+	  $query .= ' AND tb_res.entregue = 1';
+
+      $prep = $conec->prepare($query);
+
+      $prep->bindValue(1, '%'.$termo.'%');
+      $prep->bindValue(2, '%'.$termo.'%');
+
+      $prep->execute();
+
+      $res_fetch = $prep->fetchAll(PDO::FETCH_ASSOC);
+      $qtd_resultados = $prep->rowCount();
+
+      return motorBusca($res_fetch, $res_por_pagina, $pagina_atual, $qtd_resultados);
+
+    } catch (Exception $e) {
+      return null;
+    }
+  }
 
   public function buscarReservas($termo, $res_por_pagina, $pagina_atual, $apenas_reservas_hoje){
     try {
@@ -81,7 +113,7 @@ class Reserva{
       if($apenas_reservas_hoje){
         $query .= ' AND tb_res.data = CURRENT_DATE()';
       }
-	  
+	  $query .= ' AND tb_res.entregue = 0';
 	  $query .= ' ORDER BY tb_res.data DESC';
 
       $prep = $conec->prepare($query);
@@ -100,6 +132,7 @@ class Reserva{
       return null;
     }
   }
+   
 
   public function registraDevolucaoReserva($id){
     try {

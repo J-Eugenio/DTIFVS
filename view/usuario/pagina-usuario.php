@@ -190,10 +190,11 @@ $usu_logado = $usu_inst->getUsuarioLogado();
                     });
                     <?php endif; ?>
 
-                   if(valor.idDevolucao == null){
+                   if(valor.idDevolucao == null){                    
                       btnDevolucao.addClass('btn-danger');
                       spanIcon.addClass('fa-remove');
                       btnDevolucao.append($('<br/><span>Pendente</span>'))
+                      
                     }else{
                       btnDevolucao.addClass('btn-success');
                       spanIcon.addClass('fa-check');
@@ -230,6 +231,186 @@ $usu_logado = $usu_inst->getUsuarioLogado();
             </script>
           </div>
         </div>
+   
+        <?php if($usu_inst->possuiAcessoAdm()): ?>
+        <div class="col-md-7">
+          <div class="panel panel-primary table-ajustes">
+            <div class="panel-heading">
+              Equipamentos Entregues
+            </div>
+            <div class="form-group" style="margin: 8px 10px;">
+              <form id="form-equip-entregues">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                  <div class="input-group-btn">
+                    <button class="btn btn-primary"><span class=" fa fa-search"></span></button>
+                  </div>
+                  <input type="text" name="termo" class="form-control" placeholder="Informe uma palavra chave para a busca..." value="">
+                </div>
+              </form>
+            </div>
+            <div class="panel-body" style="height: 250px; overflow: auto;">
+              <table id="table-entregues" class="table table-striped table-bordered">
+                <thead>
+                  
+                    <th>Prof°</th>
+                  
+                  <th>Data</th>
+                  <th>Equipamento</th>
+				  <th style="width: 120px">Entregue</th>
+				  <th style="width: 120px">Devolução</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-footer">
+              <button id="btn-atualz-table-entreges" class="btn btn-default btn-block">
+                <i class="glyphicon glyphicon-repeat"></i> Atualizar
+              </button>
+            </div>
+            <script>
+            function atualizaTabEntregues(termo){
+
+              if(termo == null){
+                termo = $('#form-equip-entregues')[0].termo.value;
+              }
+
+              var tableRes = $('#table-entregues tbody');
+
+              tableRes.html('');
+
+              $.ajax({
+                type: "POST",
+                url: "<?php echo URL_BASE;?>"+
+                "/control/reserva-controle.php?acao=busca-entregues&ajax=true",
+                data: 'termo='+termo,
+                dataType: 'json',
+                success: function(res){
+                  for (var idx in res.resultados) {
+                    var valor = res.resultados[idx];
+
+                    var tr = $('<tr></tr>');
+
+                    <?php if($usu_inst->possuiAcessoAdm()): ?>
+                    var td1 = $('<td>'+valor.nome_professor+'</td>');
+                    <?php endif; ?>
+                    var td2 = $('<td>'+formatData(valor.data)+'</td>');
+                    var td3 = $('<td>'+valor.equip_nome+'</td>');
+                    var td4 = $('<td class="td-opcao-unica"></td>');
+					var td5 = $('<td class="td-opcao-unica"></td>');
+					
+					
+					var btnEntregue = $('<button class="btn"></button>');
+                    var spanIcon = $('<span class="fa"></span>');
+
+                    btnEntregue.append(spanIcon);
+                    td4.append(btnEntregue);
+
+                    btnEntregue.attr('id-reserva', valor.id);
+
+                    <?php if($usu_inst->possuiAcessoAdm()): ?>
+                    btnEntregue.click(function(){
+                      var idRes = $(this).attr('id-reserva');
+
+                      $.ajax({
+                        type: "POST",
+                        url: "<?php echo URL_BASE;?>"+
+                        "/control/reserva-controle.php?acao=registra-entregue-reserva&ajax=true",
+                        data: 'id='+idRes,
+                        dataType: 'json',
+                        success: function(res){
+                          if(res.result == 1){
+                            atualizaTabEntregues();
+                          }
+                        }
+                      });
+                    });
+                    <?php endif; ?>
+
+                    if(valor.entregue == 0){
+                      btnEntregue.addClass('btn-danger');
+                      spanIcon.addClass('fa-remove');
+                      btnEntregue.append($('<br/><span>Não Entregue</span>'))
+                    }else{
+                      btnEntregue.addClass('btn-success');
+                      spanIcon.addClass('fa-check');
+
+                      btnEntregue.append($('<br/><span>'+
+                      formatData(valor.dataentregue)+
+                      '</span><br/><span>'+
+                      formatHora(valor.horaentregue)+
+                      '</span>'));
+                    }
+					
+                    var btnDevolucao = $('<button class="btn"></button>');
+                    var spanIcon = $('<span class="fa"></span>');
+
+                    btnDevolucao.append(spanIcon);
+                    td5.append(btnDevolucao);
+
+                    btnDevolucao.attr('id-reserva', valor.id);
+
+                    <?php if($usu_inst->possuiAcessoAdm()): ?>
+                    btnDevolucao.click(function(){
+                      var idRes = $(this).attr('id-reserva');
+
+                      $.ajax({
+                        type: "POST",
+                        url: "<?php echo URL_BASE;?>"+
+                        "/control/reserva-controle.php?acao=regista-devolucao-reserva&ajax=true",
+                        data: 'id='+idRes,
+                        dataType: 'json',
+                        success: function(res){
+                          if(res.result == 1){
+                            atualizaTabEntregues();
+                          }
+                        }
+                      });
+                    });
+                    <?php endif; ?>
+
+                   if(valor.idDevolucao == null){
+                      btnDevolucao.addClass('btn-danger');
+                      spanIcon.addClass('fa-remove');
+                      btnDevolucao.append($('<br/><span>Pendente</span>'))
+                    }else{
+                      btnDevolucao.addClass('btn-success');
+                      spanIcon.addClass('fa-check');
+ 
+                      btnDevolucao.append($('<br/><span>'+
+                      formatData(valor.datadevolucao)+
+                      '</span><br/><span>'+
+                      formatHora(valor.horadevolucao)+
+                      '</span>'));
+                    }
+
+                    <?php if($usu_inst->possuiAcessoAdm()): ?>
+                    tr.append(td1, td2, td3, td4, td5);
+                    <?php else: ?>
+                    tr.append(td2, td3, td4, td5);
+                    <?php endif; ?>
+
+                    tableRes.append(tr);
+                  }
+                }
+              });
+            }
+
+            atualizaTabEntregues();
+
+            $('#form-equip-entregues').on('submit', function(evt){
+              atualizaTabEntregues(this.termo.value);
+              evt.preventDefault();
+            });
+
+            $('#btn-atualz-table-entreges').click(function(){
+              atualizaTabEntregues();
+            });
+            </script>
+          </div>
+        </div>
+        <?php endif; ?>
         <div class="col-md-5">
           <div class="notice-board">
             <div class="panel panel-primary table-ajustes">
@@ -261,11 +442,108 @@ $usu_logado = $usu_inst->getUsuarioLogado();
                   </tbody>
                 </table>
               </div>
+
               <div class="panel-footer">
                 <button id="btn-atualz-table-bugs" class="btn btn-default btn-block">
                   <i class="glyphicon glyphicon-repeat"></i> Atualizar
                 </button>
               </div>
+              <script>
+              function atualizaTabSolicitacoes(termo){
+                var tableSolic = $('#table-solicitacoes tbody');
+                tableSolic.html('');
+
+                $.ajax({
+                  type: "POST",
+                  url: "<?php echo URL_BASE;?>"+
+                  "/control/bug-controle.php?acao=buscar-bug&ajax=true",
+                  data: 'termo='+termo,
+                  dataType: 'json',
+                  success: function(res){
+
+                    for(var attr in res){
+                      var valor = res[attr];
+
+                      var linha = $('<tr></tr>');
+
+                      var colTitulo = $('<td>'+valor.titulo+'</td>');
+                      var colDescricao = $('<td>'+valor.descricao+'</td>');
+                      var colProf = $('<td>'+valor.nome_usu+'</td>');
+                      var colStatus = $('<td class="td-opcao-unica"></td>');
+
+                      var btnMudarStatus = $('<button class="btn"></button>');
+                      btnMudarStatus.attr('id-bug', valor.idBug);
+
+                      <?php if($usu_inst->possuiAcessoAdm()):?>
+                      
+                      btnMudarStatus.click(function(){
+                        var self = $(this);
+
+                        var dados = $.param({
+                          'id' : self.attr('id-bug'),
+                          'status' : self.attr('value')
+                        });
+
+                        $.ajax({
+                          type: "POST",
+                          url: "<?php echo URL_BASE;?>"+
+                          "/control/bug-controle.php?acao=atualiza-stat-bug&ajax=true",
+                          data: dados,
+                          dataType: 'json',
+                          success: function(res){
+
+                            if(res.result = 1){
+                              if(self.attr('value') == 1){
+                                self.html('<span class="fa fa-check"></span>');
+                                self.removeClass('btn-danger').addClass('btn-success');
+                                self.attr('value', 0);
+                              }else{
+                                self.html('<span class="fa fa-remove"></span>');
+                                self.removeClass('btn-success').addClass('btn-danger');
+                                self.attr('value', 1);
+                              }
+                            }
+                          }
+                        });
+                      });
+
+                      <?php endif; ?>
+
+                      if(valor.status == 1){
+                        btnMudarStatus.html('<span class="fa fa-check"></span>');
+                        btnMudarStatus.addClass('btn-success');
+                        btnMudarStatus.attr('value', 0);
+                      }else{
+                        btnMudarStatus.html('<span class="fa fa-remove"></span>');
+                        btnMudarStatus.addClass('btn-danger');
+                        btnMudarStatus.attr('value', 1);
+                      }
+
+                      colStatus.append(btnMudarStatus);
+
+                      <?php if($usu_inst->possuiAcessoAdm()): ?>
+                      linha.append(colTitulo, colDescricao, colProf, colStatus);
+                      <?php elseif($usu_inst->possuiAcessoProfessor()): ?>
+                      linha.append(colTitulo, colDescricao, colStatus);
+                      <?php endif; ?>
+                      tableSolic.append(linha);
+                    }
+                  }
+                });
+              }
+
+              atualizaTabSolicitacoes('');
+
+              $('#form-busca-bugs').on('submit', function(evt){
+                atualizaTabSolicitacoes(this.termo.value);
+                evt.preventDefault();
+              });
+
+              $('#btn-atualz-table-bugs').click(function(evt){
+                atualizaTabSolicitacoes($('#form-busca-bugs')[0].termo.value);
+                evt.preventDefault();
+              });
+              </script>
               <script>
               function atualizaTabSolicitacoes(termo){
                 var tableSolic = $('#table-solicitacoes tbody');

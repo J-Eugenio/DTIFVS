@@ -64,7 +64,7 @@ if($usuario_inst->possuiAcessoProfessor()){
     }
     break;
 	
-	case 'excluir-reserva':
+    case 'excluir-reserva':
 
     $res = $reserva_inst->excluirReserva($_GET['id']);
 
@@ -87,7 +87,13 @@ if($usuario_inst->possuiAcessoAdm()){
       echo json_encode($res);
     }
     break;
-
+    
+    case 'busca-entregues':
+    $res = $reserva_inst->getEntregues($_POST['termo'], 15, 1, false);     
+    if($ajax){
+      echo json_encode($res);
+    }
+    break;
     case 'regista-devolucao-reserva':
 
     $resp = $reserva_inst->registraDevolucaoReserva($_POST['id']);
