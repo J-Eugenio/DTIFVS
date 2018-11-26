@@ -88,6 +88,7 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
                     <tr>
                       <th>Nome do equipamento</th>
                       <th>Descrição</th>
+                      <th>Quantidade</th>
                       <th class="text-center">Ações</th>
                     </tr>
                   </thead>
@@ -96,6 +97,7 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
                       <tr>
                         <td data-nome="<?php echo $equip_row['nome']; ?>"><?php echo $equip_row['nome']; ?></td>
                         <td><?php echo $equip_row['descricao']; ?></td>
+                        <td><?php echo $equip_row['quantidade']; ?></td>
                         <td class="text-center">
                           <a href="<?php echo $equip_row['id']; ?>"
                             class="btn btn-sm btn-primary reservar-equip">
