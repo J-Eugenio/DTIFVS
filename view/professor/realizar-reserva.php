@@ -519,7 +519,7 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
         dataType: 'json',
         success: function(res){
           msgFormReserva.abrir(res.result, res.mensagem);
-          form.reset();
+          //form.reset();
         }
       });
 
