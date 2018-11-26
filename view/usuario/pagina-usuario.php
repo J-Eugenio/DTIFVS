@@ -142,6 +142,7 @@ $usu_logado = $usu_inst->getUsuarioLogado();
                         success: function(res){
                           if(res.result == 1){
                             atualizaTabReservas();
+                            atualizaTabEntregues();
                           }
                         }
                       });

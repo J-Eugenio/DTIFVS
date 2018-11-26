@@ -265,6 +265,7 @@ $pagindice);
 	$('#btn-confirma-exclusao-reserva').click(function(){
      window.location.href = '<?php echo URL_BASE;?>'+
      '/control/reserva-controle.php?acao=excluir-reserva&id='+idSelecReserva;
+    
 	});
 
     $('.reservar-equip').click(function(evt){

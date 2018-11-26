@@ -256,7 +256,7 @@ class Reserva{
       $conn = $connect->getConexao();
 
 	  $pre = $conn->prepare('SET GLOBAL FOREIGN_KEY_CHECKS=0');
-	  $prep = $conn->prepare('DELETE FROM reserva WHERE id=? AND entreque = 0');
+	  $prep = $conn->prepare('DELETE FROM reserva WHERE (id=? AND entregue = 1)');
 	  $prep2 = $conn->prepare('SET GLOBAL FOREIGN_KEY_CHECKS=1');
 	  
 	  
@@ -268,11 +268,10 @@ class Reserva{
 	  
       $prep2->execute();
 
-      return array(
-        'result' => 1,
-        'mensagem'=> 'Reserva excluída com sucesso!'
-      );
-
+     return array(
+        'result' => 0,
+        'mensagem'=>'Reserva feita com sucesso !'
+       );  
     } catch (Exception $e) {
       return array(
         'result' => 0,
