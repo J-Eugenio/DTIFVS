@@ -392,7 +392,8 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Selecione o turno:</label>
-                  <select class="form-control" name="turno">
+                  <select class="form-control" onchange="changeSelect2();" name="turno" id="turno">
+                    <option value=""></option>
                     <option value="Manhã">Manhã</option>
                     <option value="Tarde">Tarde</option>
                     <option value="Noite">Noite</option>
@@ -404,25 +405,104 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Informe a hora inicio da reserva:</label>
-				   <select class="form-control" name="horainicio">
-                    <option value="AB">AB</option>
-                    <option value="CD">CD</option>
-                    <option value="E">E</option>
+				   <select class="form-control" name="horainicio" id="horainicio">
+                    <option value=""></option>
                   </select>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Informe a hora final da reserva:</label>
-                 <select class="form-control" name="horafim">
-                    <option value="AB">AB</option>
-                    <option value="CD">CD</option>
-                    <option value="E">E</option>
+                 <select class="form-control" name="horafim" id="horafim">
+                    <option value=""></option>
                   </select>
                 </div>
               </div>
             </div>
           </div>
+          <script type="text/javascript">
+
+            function changeSelect2(){
+
+            var select = document.getElementById('turno');
+            var selectSetor = document.getElementById('horainicio');
+            var selectSetor2 = document.getElementById('horafim');
+
+            var value = select.options[select.selectedIndex].value;
+
+            //remove itens
+            var length = selectSetor.options.length;
+            var i;
+            for(i = selectSetor.options.length-1 ; i>=0 ; i--)
+            {
+            selectSetor.remove(i);
+            }
+            for(i = selectSetor2.options.length-1 ; i>=0 ; i--)
+            {
+            selectSetor2.remove(i);
+            }
+
+            
+            switch(value){
+              case 'Manhã':
+                var option = document.createElement('option');
+                option.value = 'AB';
+                option.text = 'AB';
+
+                var option2 = document.createElement('option');
+                option2.value = 'CD';
+                option2.text = 'CD';
+
+                var option3 = document.createElement('option');
+                option3.value = 'EF';
+                option3.text = 'EF';
+
+                var option4 = document.createElement('option');
+                option4.value = 'AB';
+                option4.text = 'AB';
+
+                var option5 = document.createElement('option');
+                option5.value = 'CD';
+                option5.text = 'CD';
+
+                var option6 = document.createElement('option');
+                option6.value = 'EF';
+                option6.text = 'EF';
+
+                selectSetor.add(option);
+                selectSetor.add(option2);
+                selectSetor.add(option3); 
+                selectSetor2.add(option4);
+                selectSetor2.add(option5);
+                selectSetor2.add(option6); 
+              break;
+
+              case 'Tarde':
+              case 'Noite':
+                var option7 = document.createElement('option');
+                option7.value = 'AB';
+                option7.text = 'AB';
+
+                var option8 = document.createElement('option');
+                option8.value = 'CD';
+                option8.text = 'CD';
+
+                var option9 = document.createElement('option');
+                option9.value = 'AB';
+                option9.text = 'AB';
+
+                var option10 = document.createElement('option');
+                option10.value = 'CD';
+                option10.text = 'CD';
+
+                selectSetor.add(option7);
+                selectSetor.add(option8); 
+                selectSetor2.add(option9);
+                selectSetor2.add(option10); 
+              break;      
+            }
+          }
+          </script>
           <div class="modal-footer">
             <button id="btn-confirma-exclusao-equip" class="btn btn-success">
               <span class="fa fa-check"></span> Concluir</button>
