@@ -94,7 +94,7 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
                   <tbody>
                     <?php foreach ($lista_equips['resultados'] as $equip_row): ?>
                       <tr>
-                        <td><?php echo $equip_row['nome']; ?></td>
+                        <td data-nome="<?php echo $equip_row['nome']; ?>"><?php echo $equip_row['nome']; ?></td>
                         <td><?php echo $equip_row['descricao']; ?></td>
                         <td class="text-center">
                           <a href="<?php echo $equip_row['id']; ?>"
@@ -141,9 +141,14 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
         <form id="form-cadastro-reserva">
 		<input type="hidden" name="equipamento" value="">
           <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
+        <div class="row">
+        <div class="col-md-6">
+        
+        <div class="form-group">
+          <label>Equipamento:</label>
+          <input type="text" id="equip-reservado" class="form-control" disabled>
+        </div>
+        <div class="form-group">
 				<label>Selecione o Campus:</label>
 						<select class ="form-control" onchange="changeSelect();" name = "campus" id ="campus">
 						<option value=""></option>
@@ -165,7 +170,7 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
 
 			  <script type="text/javascript">
 
-			   function changeSelect(){
+			  function changeSelect(){
 
         var select = document.getElementById('campus');
         var selectSetor = document.getElementById('sala');
@@ -464,6 +469,14 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
     formReserva.find('input[name=equipamento]').val(idSelecEquip);
     $('#modal-conf-exc-equip').modal('show');
     evt.preventDefault();
+  });
+  $(function(){
+    $(document).on('click', '.reservar-equip', function(e) {
+        e.preventDefault;
+        var nome = $(this).closest('tr').find('td[data-nome]').data('nome');
+        $("#equip-reservado").val(nome);
+        
+    });
   });
 
   $('#example_previous a').click(function(evt){
