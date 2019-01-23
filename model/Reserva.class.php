@@ -132,7 +132,6 @@ class Reserva{
       return null;
     }
   }
-   
 
   public function registraDevolucaoReserva($id){
     try {
@@ -140,14 +139,14 @@ class Reserva{
       $conec = $conn->getConexao();
 
       $prep = $conec->prepare('DELETE FROM devolucao WHERE reserva=?');
-      $prep2 = $conec->prepare('INSERT INTO devolucao (usuario, reserva, datadevolucao, horadevolucao) '.
-      'VALUES (?, ?, CURRENT_DATE(), CURRENT_TIME())');
+      $prep2 = $conec->prepare('INSERT INTO devolucao (usuario, reserva, datadevolucao, horadevolucao, devolucao) '.
+      'VALUES (?, ?, CURRENT_DATE(), CURRENT_TIME(), ?)');
 
       $prep->bindValue(1, $id);
 
       $prep2->bindValue(1, $_SESSION['USER_ID']);
       $prep2->bindValue(2, $id);
-
+      $prep2->bindValue(3, '1');
       $prep->execute();
       $prep2->execute();
 
@@ -256,7 +255,7 @@ class Reserva{
       $conn = $connect->getConexao();
 
 	  $pre = $conn->prepare('SET GLOBAL FOREIGN_KEY_CHECKS=0');
-	  $prep = $conn->prepare('DELETE FROM reserva WHERE (id=? AND entregue = 1)');
+	  $prep = $conn->prepare('DELETE FROM reserva WHERE (id=? AND entregue = 0)');
 	  $prep2 = $conn->prepare('SET GLOBAL FOREIGN_KEY_CHECKS=1');
 	  
 	  

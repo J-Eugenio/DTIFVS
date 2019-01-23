@@ -11,9 +11,7 @@ $reserva_inst = new Reserva;
 $usu_inst->redirecNaoProfessor();
 
 $usu_logado = $usu_inst->getUsuarioLogado();
-
 $pagindice = isset($_GET['pagindice']) ? $_GET['pagindice'] : 1;
-
 $lista_equips = $reserva_inst->getReservasProfLogado(empty($_GET['termo']) ? '' : $_GET['termo'],
 10,
 $pagindice);
@@ -98,19 +96,20 @@ $pagindice);
                   </thead>
                   <tbody>
                     <?php foreach ($lista_equips['resultados'] as $res_row): ?>
+                      <?php if(!$res_row['entregue'] == 1): ?>
                       <tr>
+
                         <td><?php echo date("d/m/Y", strtotime($res_row['data'])); ?></td>
                         <td><?php echo $res_row['equip_nome']; ?></td>
                         <td><?php echo $res_row['campus']; ?></td>
-                        <td><?php echo $res_row['sala']; ?></td>
-						<td class="text-center">
-                          <a href="<?php echo $res_row['id']; ?>"
-                            class="btn btn-sm btn-danger excluir-reserva">
-                            <span class="fa fa-trash"></span> Cancelar</a>
-							<a href="<?php echo URL_BASE;?>/view/professor/minhas-reservas.php">
-							
+                        <td><?php echo $res_row['usuario']; ?></td>
+						            <td class="text-center">
+                        <a href="<?php echo $res_row['id']; ?>" class="btn btn-sm btn-danger excluir-reserva">
+                        <span class="fa fa-trash"></span> Cancelar</a>
+							          <a href="<?php echo URL_BASE;?>/view/professor/minhas-reservas.php">
                         </td>
                       </tr>
+                    <?php endif; ?>
                     <?php endforeach; ?>
                   </tbody>
                 </table>
