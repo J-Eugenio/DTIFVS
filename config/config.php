@@ -1,9 +1,9 @@
 <?php
 
 define('DATABASE_HOST', 'localhost');
-define('DATABASE_NAME', 'dti');
-define('DATABASE_USERNAME', 'pmauser');
-define('DATABASE_PASSWORD', 'kqklpi123');
+define('DATABASE_NAME', 'wwwnexas_dti');
+define('DATABASE_USERNAME', 'root');
+define('DATABASE_PASSWORD', '');
 define('DATABASE_CHARSET', 'utf8');
 
 define('URL_BASE', 'http://localhost/dti');

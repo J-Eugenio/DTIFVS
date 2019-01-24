@@ -81,8 +81,8 @@
                         <i class="fa fa-search" aria-hidden="true"></i><span> Buscar Equipamentos</span></a></li>
                     <li><a href="<?php echo URL_BASE ?>/view/administrador/formulario-equipamento.php">
                         <i class="fa fa-plus" aria-hidden="true"></i><span> Cadastrar Equipamento</span></a></li>
-                         <!-- <li><a href="<?php echo URL_BASE ?>/view/usuario/alterar-senha.php">
-                            <i class="fa fa-lock" aria-hidden="true"></i><span> Alterar Senha</span></a></li> -->
+                    <li><a href="<?php echo URL_BASE ?>/view/administrador/relatorio.php">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span> Relatorio</span></a></li>
                           <?php endif; ?>
 
                           <li><a href="<?php echo URL_BASE ?>/control/usuario-controle.php?acao=logoff">

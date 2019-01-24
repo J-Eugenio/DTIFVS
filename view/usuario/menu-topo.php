@@ -75,13 +75,15 @@
 
                         <li><a href="<?php echo URL_BASE ?>/view/administrador/reservas-dia.php">
                           <i class="fa fa-calendar" aria-hidden="true"></i><span> Reservas para hoje</span></a></li>
-						<li><a href="<?php echo URL_BASE ?>/view/administrador/cadastro-usuario.php">
+						            <li><a href="<?php echo URL_BASE ?>/view/administrador/cadastro-usuario.php">
                           <i class="fa fa-users" aria-hidden="true"></i><span> Cadastrar Usuário</span></a></li>
-                          <li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-equipamento.php">
-                            <i class="fa fa-search" aria-hidden="true"></i><span> Buscar Equipamentos</span></a></li>
-                          <li><a href="<?php echo URL_BASE ?>/view/administrador/formulario-equipamento.php">
-                            <i class="fa fa-plus" aria-hidden="true"></i><span> Cadastrar Equipamento</span></a></li>
-                          <?php endif; ?>
+                        <li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-equipamento.php">
+                          <i class="fa fa-search" aria-hidden="true"></i><span> Buscar Equipamentos</span></a></li>
+                        <li><a href="<?php echo URL_BASE ?>/view/administrador/formulario-equipamento.php">
+                          <i class="fa fa-plus" aria-hidden="true"></i><span> Cadastrar Equipamento</span></a></li>
+                        <li><a href="<?php echo URL_BASE ?>/view/administrador/formulario-equipamento.php">
+                          <i class="fa fa-plus" aria-hidden="true"></i><span> Relatorio</span></a></li>
+                        <?php endif; ?>
 
                           <li><a href="<?php echo URL_BASE ?>/control/usuario-controle.php?acao=logoff">
                             <i class="fa fa-sign-out" aria-hidden="true"></i><span> Fazer logout</span></a></li>

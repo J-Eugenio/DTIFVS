@@ -10,7 +10,6 @@ class Usuario{
       session_start();
     }
   }
-
   public function logar($login, $senha){
     try {
       $connect = $this->connect;

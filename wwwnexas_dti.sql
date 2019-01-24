@@ -47,7 +47,8 @@ CREATE TABLE `devolucao` (
   `usuario` int(11) NOT NULL,
   `reserva` int(11) NOT NULL,
   `datadevolucao` date NOT NULL,
-  `horadevolucao` time NOT NULL
+  `horadevolucao` time NOT NULL,
+  `devolucao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

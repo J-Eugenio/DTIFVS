@@ -172,24 +172,7 @@ $usu_logado = $usu_inst->getUsuarioLogado();
 
                     btnDevolucao.attr('id-reserva', valor.id);
 
-                    <?php if($usu_inst->possuiAcessoAdm()): ?>
-                    btnDevolucao.click(function(){
-                      var idRes = $(this).attr('id-reserva');
-
-                      $.ajax({
-                        type: "POST",
-                        url: "<?php echo URL_BASE;?>"+
-                        "/control/reserva-controle.php?acao=regista-devolucao-reserva&ajax=true",
-                        data: 'id='+idRes,
-                        dataType: 'json',
-                        success: function(res){
-                          if(res.result == 1){
-                            atualizaTabReservas();
-                          }
-                        }
-                      });
-                    });
-                    <?php endif; ?>
+                   
 
                    if(valor.idDevolucao == null){                    
                       btnDevolucao.addClass('btn-danger');
@@ -197,14 +180,17 @@ $usu_logado = $usu_inst->getUsuarioLogado();
                       btnDevolucao.append($('<br/><span>Pendente</span>'))
                       
                     }else{
-                      btnDevolucao.addClass('btn-success');
-                      spanIcon.addClass('fa-check');
+                      
+                        btnDevolucao.addClass('btn-success');
+                        spanIcon.addClass('fa-check');
  
-                      btnDevolucao.append($('<br/><span>'+
-                      formatData(valor.datadevolucao)+
-                      '</span><br/><span>'+
-                      formatHora(valor.horadevolucao)+
-                      '</span>'));
+                        btnDevolucao.append($('<br/><span>'+
+                        formatData(valor.datadevolucao)+
+                        '</span><br/><span>'+
+                        formatHora(valor.horadevolucao)+
+                        '</span>'));
+                      
+                      
                     }
 
                     <?php if($usu_inst->possuiAcessoAdm()): ?>
