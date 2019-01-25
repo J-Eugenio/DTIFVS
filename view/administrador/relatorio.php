@@ -6,17 +6,19 @@ include_once '../../model/Usuario.class.php';
 include_once '../../model/Recurso.class.php';
 
 $usu_inst = new Usuario;
-$equip_inst = new Recurso;
-
 $usu_inst->redirecNaoAdm();
-
 $usu_logado = $usu_inst->getUsuarioLogado();
-
 $pagindice = isset($_GET['pagindice']) ? $_GET['pagindice'] : 1;
+//referenciar o DomPDF com namespace
+use Dompdf\Dompdf;
 
-$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id";
+// include autoloader
+require_once("dompdf/autoload.inc.php");
+
+$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id INNER JOIN devolucao ON reserva.id = devolucao.reserva";
 $lista_equips = mysqli_query($connect, $query);
 
+    
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -63,13 +65,9 @@ $lista_equips = mysqli_query($connect, $query);
           <div class="panel panel-primary table-ajustes">
             <div class="panel-body">
               <div class="col-md-12 form-group">
-                <form action="" method="get" id="form-busca">
+                <form action="relatorioPDF.php" method="POST" id="form-busca">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon"><span class="fa fa-search"></span></div>
-                    <input type="hidden" name="pagindice" value="1">
-                    <input type="text" class="form-control" name="termo"
-                    placeholder="Informe uma palavra chave para a busca..."
-                    value="<?php echo isset($_GET['termo']) ? $_GET['termo'] : '' ?>">
+                    <button type="submit" class="btn btn-primary">Imprimir relatorio</button>
                   </div>
                 </form>
               </div>
@@ -87,6 +85,7 @@ $lista_equips = mysqli_query($connect, $query);
                   </thead>
                   <tbody style="overflow: auto; height: 300px">
                     <?php foreach ($lista_equips as $equip_row): ?>
+                      <?php if($equip_row['entregue'] == 1): ?>
                       <tr>
                         <td><?php echo $equip_row['userName']; ?></td>
                         <td><?php echo $equip_row['nome']; ?></td>
@@ -95,6 +94,7 @@ $lista_equips = mysqli_query($connect, $query);
                         <td><?php echo $equip_row['campus']; ?></td>
                         <td><?php echo $equip_row['sala']; ?></td>
                       </tr>
+                    <?php endif; ?>
                     <?php endforeach; ?>
                   </tbody>
                 </table>
