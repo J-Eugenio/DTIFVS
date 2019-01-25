@@ -26,10 +26,10 @@ require_once("dompdf/autoload.inc.php");
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody>';
-$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id INNER JOIN devolucao ON reserva.id = devolucao.reserva";
+$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id";
 $lista_equips = mysqli_query($connect, $query);
 foreach ($lista_equips as $equip_row):
-    if($equip_row['entregue'] == 1):
+    if($equip_row['entregue'] == 1 && $equip_row['devolucao'] == 0):
         $html .= '<tr><td>'.$equip_row['userName']. "</td>";
         $html .= '<td>'.$equip_row['nome']. "</td>";
         $html .= '<td>'.$equip_row['data']. "</td>";
@@ -47,7 +47,7 @@ endforeach;
     $dompdf->render();
 
     //Exibibir a página
-    $dompdf->stream("relatorio_celke.pdf", 
+    $dompdf->stream("relatorio.pdf", 
     array("Attachment" => false //Para realizar o download somente alterar para true
     ));
     

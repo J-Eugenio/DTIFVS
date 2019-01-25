@@ -142,7 +142,7 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
         </div>
         <form id="form-cadastro-reserva">
 		<input type="hidden" name="equipamento" value="">
-          <div class="modal-body">
+        <div class="modal-body">
         <div class="row">
         <div class="col-md-6">
         
@@ -151,24 +151,28 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
           <input type="text" id="equip-reservado" class="form-control" disabled>
         </div>
         <div class="form-group">
-				<label>Selecione o Campus:</label>
-						<select class ="form-control" onchange="changeSelect();" name = "campus" id ="campus">
-						<option value=""></option>
-							<option value="Prédio Principal / Anexo">Prédio Principal</option>
-							<option value="Anexo / Prédio Principal">Anexo</option>
-							<option value="Clínica Escola">Clínica Escola</option>
-						</select>
-				</div>
-				</div>
-			  <div class="col-md-6">
+		  <label>Selecione o Campus:</label>
+		   <select class ="form-control" onchange="changeSelect();" name = "campus" id ="campus">
+			<option value=""></option>
+			<option value="Prédio Principal / Anexo">Prédio Principal</option>
+			<option value="Anexo / Prédio Principal">Anexo</option>
+			<option value="Clínica Escola">Clínica Escola</option>
+		   </select>
+		</div>	
+		</div>
+		<div class="col-md-6">
 				<div class="form-group">
                   <label>Selecione a Sala:</label>
                   <select id ="sala" class="form-control" name="sala">
-					<option value=""></option>
+				  <option value=""></option>
 				  </select>
-				  </div>
 				</div>
-              </div>
+				<div class="form-group">
+                  <label>Selecione uma data:</label>
+                  <input type="text" name="data" class="form-control" id="datepicker"/>
+                </div>
+		</div>
+        </div>
 
 			  <script type="text/javascript">
 
@@ -383,12 +387,6 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
 
 
             <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Selecione uma data:</label>
-                  <input type="text" name="data" class="form-control" id="datepicker"/>
-                </div>
-              </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Selecione o turno:</label>

@@ -15,7 +15,7 @@ use Dompdf\Dompdf;
 // include autoloader
 require_once("dompdf/autoload.inc.php");
 
-$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id INNER JOIN devolucao ON reserva.id = devolucao.reserva";
+$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id";
 $lista_equips = mysqli_query($connect, $query);
 
     
@@ -85,7 +85,7 @@ $lista_equips = mysqli_query($connect, $query);
                   </thead>
                   <tbody style="overflow: auto; height: 300px">
                     <?php foreach ($lista_equips as $equip_row): ?>
-                      <?php if($equip_row['entregue'] == 1): ?>
+                      <?php if($equip_row['entregue'] == 1 && $equip_row['devolucao'] == 0): ?>
                       <tr>
                         <td><?php echo $equip_row['userName']; ?></td>
                         <td><?php echo $equip_row['nome']; ?></td>

@@ -53,7 +53,6 @@ $usu_logado = $usu_inst->getUsuarioLogado();
 
       <div class="row">
         <div class="col-md-7">
-
           <div class="panel panel-primary table-ajustes">
             <div class="panel-heading">
               Tabela de reservas
@@ -218,9 +217,149 @@ $usu_logado = $usu_inst->getUsuarioLogado();
             </script>
           </div>
         </div>
-   
-        <?php if($usu_inst->possuiAcessoAdm()): ?>
-        <div class="col-md-7">
+        
+        <div class="col-md-5">
+          <div class="notice-board">
+            <div class="panel panel-primary table-ajustes">
+              <div class="panel-heading">
+                Suporte a Equipamentos
+              </div>
+              <div class="form-group" style="margin: 8px 10px;">
+                <form id="form-busca-bugs">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-btn">
+                      <button class="btn btn-primary"><span class=" fa fa-search"></span></button>
+                    </div>
+                    <input type="text" name="termo" class="form-control" placeholder="Informe uma palavra chave para a busca..." value="">
+                  </div>
+                </form>
+              </div>
+              <div class="panel-body" style="height: 250px; overflow: auto;">
+                <table id="table-solicitacoes" class="table table-striped table-bordered">
+                  <thead>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <?php if($usu_inst->possuiAcessoAdm()): ?>
+                      <th>Prof°</th>
+                    <?php endif; ?>
+                    <th style="width: 60px;">Status</th>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="panel-footer">
+                <button id="btn-atualz-table-bugs" class="btn btn-default btn-block">
+                  <i class="glyphicon glyphicon-repeat"></i> Atualizar
+                </button>
+              </div>
+              
+              <script>
+              function atualizaTabSolicitacoes(termo){
+                var tableSolic = $('#table-solicitacoes tbody');
+                tableSolic.html('');
+
+                $.ajax({
+                  type: "POST",
+                  url: "<?php echo URL_BASE;?>"+
+                  "/control/bug-controle.php?acao=buscar-bug&ajax=true",
+                  data: 'termo='+termo,
+                  dataType: 'json',
+                  success: function(res){
+
+                    for(var attr in res){
+                      var valor = res[attr];
+
+                      var linha = $('<tr></tr>');
+
+                      var colTitulo = $('<td>'+valor.titulo+'</td>');
+                      var colDescricao = $('<td>'+valor.descricao+'</td>');
+                      var colProf = $('<td>'+valor.nome_usu+'</td>');
+                      var colStatus = $('<td class="td-opcao-unica"></td>');
+
+                      var btnMudarStatus = $('<button class="btn"></button>');
+                      btnMudarStatus.attr('id-bug', valor.idBug);
+
+                      <?php if($usu_inst->possuiAcessoAdm()):?>
+                      
+                      btnMudarStatus.click(function(){
+                        var self = $(this);
+
+                        var dados = $.param({
+                          'id' : self.attr('id-bug'),
+                          'status' : self.attr('value')
+                        });
+
+                        $.ajax({
+                          type: "POST",
+                          url: "<?php echo URL_BASE;?>"+
+                          "/control/bug-controle.php?acao=atualiza-stat-bug&ajax=true",
+                          data: dados,
+                          dataType: 'json',
+                          success: function(res){
+
+                            if(res.result = 1){
+                              if(self.attr('value') == 1){
+                                self.html('<span class="fa fa-check"></span>');
+                                self.removeClass('btn-danger').addClass('btn-success');
+                                self.attr('value', 0);
+                              }else{
+                                self.html('<span class="fa fa-remove"></span>');
+                                self.removeClass('btn-success').addClass('btn-danger');
+                                self.attr('value', 1);
+                              }
+                            }
+                          }
+                        });
+                      });
+
+                      <?php endif; ?>
+
+                      if(valor.status == 1){
+                        btnMudarStatus.html('<span class="fa fa-check"></span>');
+                        btnMudarStatus.addClass('btn-success');
+                        btnMudarStatus.attr('value', 0);
+                      }else{
+                        btnMudarStatus.html('<span class="fa fa-remove"></span>');
+                        btnMudarStatus.addClass('btn-danger');
+                        btnMudarStatus.attr('value', 1);
+                      }
+
+                      colStatus.append(btnMudarStatus);
+
+                      <?php if($usu_inst->possuiAcessoAdm()): ?>
+                      linha.append(colTitulo, colDescricao, colProf, colStatus);
+                      <?php elseif($usu_inst->possuiAcessoProfessor()): ?>
+                      linha.append(colTitulo, colDescricao, colStatus);
+                      <?php endif; ?>
+                      tableSolic.append(linha);
+                    }
+                  }
+                });
+              }
+
+              atualizaTabSolicitacoes('');
+
+              $('#form-busca-bugs').on('submit', function(evt){
+                atualizaTabSolicitacoes(this.termo.value);
+                evt.preventDefault();
+              });
+
+              $('#btn-atualz-table-bugs').click(function(evt){
+                atualizaTabSolicitacoes($('#form-busca-bugs')[0].termo.value);
+                evt.preventDefault();
+              });
+              </script>
+            </div>
+          </div>
+            </div>
+          </div>
+		
+	  <?php if($usu_inst->possuiAcessoAdm()): ?>
+      <div class="row"> 
+	  	<div class="col-md-7">
           <div class="panel panel-primary table-ajustes">
             <div class="panel-heading">
               Equipamentos Entregues
@@ -397,146 +536,10 @@ $usu_logado = $usu_inst->getUsuarioLogado();
             </script>
           </div>
         </div>
-        <?php endif; ?>
-        <div class="col-md-5">
-          <div class="notice-board">
-            <div class="panel panel-primary table-ajustes">
-              <div class="panel-heading">
-                Suporte a Equipamentos
-              </div>
-              <div class="form-group" style="margin: 8px 10px;">
-                <form id="form-busca-bugs">
-                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-btn">
-                      <button class="btn btn-primary"><span class=" fa fa-search"></span></button>
-                    </div>
-                    <input type="text" name="termo" class="form-control" placeholder="Informe uma palavra chave para a busca..." value="">
-                  </div>
-                </form>
-              </div>
-              <div class="panel-body" style="height: 250px; overflow: auto;">
-                <table id="table-solicitacoes" class="table table-striped table-bordered">
-                  <thead>
-                    <th>Título</th>
-                    <th>Descrição</th>
-                    <?php if($usu_inst->possuiAcessoAdm()): ?>
-                      <th>Prof°</th>
-                    <?php endif; ?>
-                    <th style="width: 60px;">Status</th>
-                  </thead>
-                  <tbody>
-
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="panel-footer">
-                <button id="btn-atualz-table-bugs" class="btn btn-default btn-block">
-                  <i class="glyphicon glyphicon-repeat"></i> Atualizar
-                </button>
-              </div>
-              
-              <script>
-              function atualizaTabSolicitacoes(termo){
-                var tableSolic = $('#table-solicitacoes tbody');
-                tableSolic.html('');
-
-                $.ajax({
-                  type: "POST",
-                  url: "<?php echo URL_BASE;?>"+
-                  "/control/bug-controle.php?acao=buscar-bug&ajax=true",
-                  data: 'termo='+termo,
-                  dataType: 'json',
-                  success: function(res){
-
-                    for(var attr in res){
-                      var valor = res[attr];
-
-                      var linha = $('<tr></tr>');
-
-                      var colTitulo = $('<td>'+valor.titulo+'</td>');
-                      var colDescricao = $('<td>'+valor.descricao+'</td>');
-                      var colProf = $('<td>'+valor.nome_usu+'</td>');
-                      var colStatus = $('<td class="td-opcao-unica"></td>');
-
-                      var btnMudarStatus = $('<button class="btn"></button>');
-                      btnMudarStatus.attr('id-bug', valor.idBug);
-
-                      <?php if($usu_inst->possuiAcessoAdm()):?>
-                      
-                      btnMudarStatus.click(function(){
-                        var self = $(this);
-
-                        var dados = $.param({
-                          'id' : self.attr('id-bug'),
-                          'status' : self.attr('value')
-                        });
-
-                        $.ajax({
-                          type: "POST",
-                          url: "<?php echo URL_BASE;?>"+
-                          "/control/bug-controle.php?acao=atualiza-stat-bug&ajax=true",
-                          data: dados,
-                          dataType: 'json',
-                          success: function(res){
-
-                            if(res.result = 1){
-                              if(self.attr('value') == 1){
-                                self.html('<span class="fa fa-check"></span>');
-                                self.removeClass('btn-danger').addClass('btn-success');
-                                self.attr('value', 0);
-                              }else{
-                                self.html('<span class="fa fa-remove"></span>');
-                                self.removeClass('btn-success').addClass('btn-danger');
-                                self.attr('value', 1);
-                              }
-                            }
-                          }
-                        });
-                      });
-
-                      <?php endif; ?>
-
-                      if(valor.status == 1){
-                        btnMudarStatus.html('<span class="fa fa-check"></span>');
-                        btnMudarStatus.addClass('btn-success');
-                        btnMudarStatus.attr('value', 0);
-                      }else{
-                        btnMudarStatus.html('<span class="fa fa-remove"></span>');
-                        btnMudarStatus.addClass('btn-danger');
-                        btnMudarStatus.attr('value', 1);
-                      }
-
-                      colStatus.append(btnMudarStatus);
-
-                      <?php if($usu_inst->possuiAcessoAdm()): ?>
-                      linha.append(colTitulo, colDescricao, colProf, colStatus);
-                      <?php elseif($usu_inst->possuiAcessoProfessor()): ?>
-                      linha.append(colTitulo, colDescricao, colStatus);
-                      <?php endif; ?>
-                      tableSolic.append(linha);
-                    }
-                  }
-                });
-              }
-
-              atualizaTabSolicitacoes('');
-
-              $('#form-busca-bugs').on('submit', function(evt){
-                atualizaTabSolicitacoes(this.termo.value);
-                evt.preventDefault();
-              });
-
-              $('#btn-atualz-table-bugs').click(function(evt){
-                atualizaTabSolicitacoes($('#form-busca-bugs')[0].termo.value);
-                evt.preventDefault();
-              });
-              </script>
-            </div>
-          </div>
-            </div>
-          </div>
-        </div>
+	  </div> 
+      <?php endif; ?>
+      </div>
+	  
       </div>
       <!-- CONTENT-WRAPPER SECTION END-->
       <footer>

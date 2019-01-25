@@ -96,7 +96,7 @@ $pagindice);
                   </thead>
                   <tbody>
                     <?php foreach ($lista_equips['resultados'] as $res_row): ?>
-                      <?php if(!$res_row['entregue'] == 1): ?>
+                      <?php if(($res_row['entregue'] == 1 || $res_row['entregue'] == 0) && $res_row['devolucao'] == 0): ?>
                       <tr>
 
                         <td><?php echo date("d/m/Y", strtotime($res_row['data'])); ?></td>

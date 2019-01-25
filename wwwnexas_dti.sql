@@ -103,6 +103,7 @@ CREATE TABLE `reserva` (
   `horainicio` varchar(10) NOT NULL,
   `horafim` varchar(10) NOT NULL,
   `entregue` tinyint(1) NOT NULL DEFAULT '0',
+  `devolucao` tinyint(1) NOT NULL DEFAULT '0',
   `dataentregue` date NOT NULL,
   `horaentregue` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
