@@ -110,17 +110,15 @@ $usu_logado = $usu_inst->getUsuarioLogado();
                     var valor = res.resultados[idx];
 
                     var tr = $('<tr></tr>');
-
+                    
                     <?php if($usu_inst->possuiAcessoAdm()): ?>
                     var td1 = $('<td>'+valor.nome_professor+'</td>');
                     <?php endif; ?>
                     var td2 = $('<td>'+formatData(valor.data)+'</td>');
                     var td3 = $('<td>'+valor.equip_nome+'</td>');
                     var td4 = $('<td class="td-opcao-unica"></td>');
-					var td5 = $('<td class="td-opcao-unica"></td>');
-					
-					
-					var btnEntregue = $('<button class="btn"></button>');
+					          var td5 = $('<td class="td-opcao-unica"></td>');
+  					        var btnEntregue = $('<button class="btn"></button>');
                     var spanIcon = $('<span class="fa"></span>');
 
                     btnEntregue.append(spanIcon);

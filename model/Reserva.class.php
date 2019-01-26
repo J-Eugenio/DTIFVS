@@ -47,7 +47,7 @@ class Reserva{
       'tb_dev.datadevolucao, tb_dev.horadevolucao, tb_dev.idDevolucao'.
       ' FROM reserva tb_res INNER JOIN recurso tb_equip ON tb_res.equipamento = tb_equip.id '.
       ' LEFT JOIN devolucao tb_dev ON tb_res.id = tb_dev.reserva'.
-      ' WHERE tb_res.usuario = ? AND (tb_equip.nome LIKE?)';
+      ' WHERE tb_res.usuario = ? AND (tb_equip.nome LIKE?) ORDER BY devolucao ASC';
 
       $prep = $conec->prepare($query);
 
