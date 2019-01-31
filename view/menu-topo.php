@@ -52,7 +52,7 @@
   <section class="menu-section">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-16">
           <div class="navbar-collapse collapse ">
             <ul id="menu-top" class="nav navbar-nav navbar-left">
               <?php if($usu_inst->estaLogado()): ?>
@@ -88,7 +88,7 @@
                           <?php endif; ?>
 
                           <li><a href="<?php echo URL_BASE ?>/control/usuario-controle.php?acao=logoff">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i><span> Fazer logout</span></a></li>
+                            <i class="fa fa-sign-out" aria-hidden="true"></i><span> Sair</span></a></li>
 
                           <?php endif; ?>
                         </ul>
