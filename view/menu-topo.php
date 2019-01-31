@@ -83,6 +83,8 @@
                         <i class="fa fa-plus" aria-hidden="true"></i><span> Cadastrar Equipamento</span></a></li>
                     <li><a href="<?php echo URL_BASE ?>/view/administrador/relatorio.php">
                         <i class="fa fa-plus" aria-hidden="true"></i><span> Relatorio</span></a></li>
+                    <li><a href="<?php echo URL_BASE ?>/view/gmail/email.php"> 
+                        <i class="fa fa-plus" aria-hidden="true"></i><span> Notificações</span></a></li>   
                           <?php endif; ?>
 
                           <li><a href="<?php echo URL_BASE ?>/control/usuario-controle.php?acao=logoff">
