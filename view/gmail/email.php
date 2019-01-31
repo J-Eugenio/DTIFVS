@@ -53,12 +53,12 @@ $usu_logado = $usu_inst->getUsuarioLogado();
               Sistema de E-mails
             </div>
             <div class="panel-body">
-              <form id="form-suporte-equipamento">
+              <form method="post" action="processa_email.php">
 				        <div class="form-group">
                   <label>Para: </label>
-                  <input type="text" name="titulo" class="form-control" placeholder="Informe o E-mail..."/>
+                  <input type="text" name="para" class="form-control" placeholder="Informe o E-mail..."/>
                   <label>Assunto: </label>
-                  <input type="text" name="descricao" class="form-control" placeholder="Informe a Assunto.."/>
+                  <input type="text" name="assunto" class="form-control" placeholder="Informe a Assunto.."/>
                    <label>Mensagem: </label>
                   <textarea rows="4" cols="50" name="mensagem" class="form-control" placeholder="Digite sua Mensagem..."></textarea>
                 </div>
