@@ -153,6 +153,26 @@ class Recurso{
     }
   }
 
+   public function buscarPendencia($termo, $res_por_pagina = 20, $pagina_atual = 1){
+    try {
+      $connect = $this->conn;
+      $conn = $connect->getConexao();
+
+      $prep = $conn->prepare('SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id LIKE?)');
+
+      $prep->bindValue(1, '%'.$termo.'%');
+
+      $prep->execute();
+
+      $res_fetch = $prep->fetchAll(PDO::FETCH_ASSOC);
+      $qtd_resultados = $prep->rowCount();
+
+      return motorBusca($res_fetch, $res_por_pagina, $pagina_atual, $qtd_resultados);
+
+    } catch (Exception $e) {
+      return null;
+    }
+  }
   public function excluirRecurso($id){
     try {
       $connect = $this->conn;

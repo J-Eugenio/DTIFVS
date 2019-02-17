@@ -9,13 +9,16 @@ $usu_inst = new Usuario;
 $usu_inst->redirecNaoAdm();
 $usu_logado = $usu_inst->getUsuarioLogado();
 $pagindice = isset($_GET['pagindice']) ? $_GET['pagindice'] : 1;
+$equip_inst = new Recurso;
+$lista_equips = $equip_inst->buscarPendencia(empty($_GET['termo']) ? '' : $_GET['termo'], 10, $pagindice);
 //referenciar o DomPDF com namespace
 use Dompdf\Dompdf;
 
 // include autoloader
 require_once("dompdf/autoload.inc.php");
+$parametro = filter_input(INPUT_GET, "search");
 
-$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id";
+$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id WHERE data LIKE '$parametro%'";
 $lista_equips = mysqli_query($connect, $query);
 
     
@@ -36,7 +39,7 @@ $lista_equips = mysqli_query($connect, $query);
   <link href="<?php echo URL_BASE ?>/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
   <script src="<?php echo URL_BASE ?>/js/jquery-1.12.3.js"></script>
-
+   <script src="<?php echo URL_BASE ?>/js/jquery.mask.js"></script>
   <link href="<?php echo URL_BASE ?>/css/font-awesome.css" rel="stylesheet"/>
 
   <link href="<?php echo URL_BASE ?>/css/style.css" rel="stylesheet"/>
@@ -49,6 +52,11 @@ $lista_equips = mysqli_query($connect, $query);
   <link rel="stylesheet" href="<?php echo URL_BASE ?>/css/jquery-ui.css">
   <link rel="icon" type="imagem/png" href="<?php echo URL_BASE; ?>/assets/img/dti.png" />
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#pesq").mask("0000-00-00");
+    })
+  </script>
 </head>
 <body>
   <?php include_once '../menu-topo.php' ?>
@@ -67,7 +75,28 @@ $lista_equips = mysqli_query($connect, $query);
               <div class="col-md-12 form-group">
                 <form action="relatorioPDF.php" method="POST" id="form-busca">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <input type="hidden" name="filtro" value="<?php 
+                    if(isset($_GET['search'])):
+                      echo $_GET['search'];
+                    else:
+                      echo "null";
+                    endif; 
+                    ?>">
                     <button type="submit" class="btn btn-primary">Imprimir relatorio</button>
+                  </div>
+                </form>
+              </div>
+              <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-primary table-ajustes">
+            <div class="panel-body">
+              <div class="col-md-12 form-group">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon"><span class="fa fa-search"></span></div>
+                    <input type="text" class="form-control" name="search"
+                    placeholder="Informe uma palavra chave para a busca..."
+                    id="pesq">
                   </div>
                 </form>
               </div>

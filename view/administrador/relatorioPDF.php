@@ -13,6 +13,13 @@ $pagindice = isset($_GET['pagindice']) ? $_GET['pagindice'] : 1;
 use Dompdf\Dompdf;
 
 // include autoloader
+$query = 0;
+    if($_POST['filtro'] != 0):
+        $data = $_POST['filtro'];
+        $query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id WHERE data LIKE '$data%'";
+    else:
+        $query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id";
+    endif;
 require_once("dompdf/autoload.inc.php");
     $html = '<table border=1px solid black';  
     $html .= '<thead>';
@@ -26,8 +33,8 @@ require_once("dompdf/autoload.inc.php");
     $html .= '</tr>';
     $html .= '</thead>';
     $html .= '<tbody>';
-$query = "SELECT *, usuario.nome as userName FROM reserva INNER JOIN usuario ON reserva.usuario = usuario.id INNER JOIN  recurso ON reserva.equipamento = recurso.id";
-$lista_equips = mysqli_query($connect, $query);
+
+        $lista_equips = mysqli_query($connect, $query);
 foreach ($lista_equips as $equip_row):
     if($equip_row['entregue'] == 1 && $equip_row['devolucao'] == 0):
         $html .= '<tr><td>'.$equip_row['userName']. "</td>";
