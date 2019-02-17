@@ -113,5 +113,15 @@ if($usuario_inst->possuiAcessoAdm()){
     }
 	
     break;
+
+  case 'remover-entregue-reserva':
+
+    $resp = $reserva_inst->removerEntregueReserva($_POST['id']);
+
+    if($ajax){
+      echo json_encode($resp);
+    }
+  
+    break;
   }
 }

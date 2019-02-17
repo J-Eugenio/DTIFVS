@@ -440,11 +440,12 @@ $usu_logado = $usu_inst->getUsuarioLogado();
                       $.ajax({
                         type: "POST",
                         url: "<?php echo URL_BASE;?>"+
-                        "/control/reserva-controle.php?acao=registra-entregue-reserva&ajax=true",
+                        "/control/reserva-controle.php?acao=remover-entregue-reserva&ajax=true",
                         data: 'id='+idRes,
                         dataType: 'json',
                         success: function(res){
                           if(res.result == 1){
+                            atualizaTabReservas();
                             atualizaTabEntregues();
                           }
                         }

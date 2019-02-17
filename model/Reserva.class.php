@@ -191,6 +191,32 @@ class Reserva{
     }
   }
 
+  public function removerEntregueReserva($id){
+    try {
+      $conn = $this->conn;
+      $conec = $conn->getConexao();
+    $value = 0;
+
+      $prep = $conec->prepare('UPDATE reserva SET entregue=?, dataentregue=CURRENT_DATE(), horaentregue = CURRENT_TIME() WHERE id=?');
+
+    $prep->bindValue(1, $value);
+    $prep->bindValue(2, $id);
+    
+      $prep->execute();
+
+      return array(
+        'result' => 1,
+        'mensagem' => 'Devolução registrada com sucesso!'
+      );
+
+    } catch (Exception $e) {
+      return array(
+        'result' => 0,
+        'mensagem' => 'Ocorreu um erro ao tentar registrar a devolução.'
+      );
+    }
+  }
+
   public function podeRealizarReserva($dia, $horaini, $horafim, $idequip, $campus){
 	  
 	  if(strtotime($dia) > strtotime('7 day') || strtotime($dia) < strtotime('today UTC')) {
