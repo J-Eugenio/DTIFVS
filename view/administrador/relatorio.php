@@ -95,7 +95,7 @@ $lista_equips = mysqli_query($connect, $query);
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon"><span class="fa fa-search"></span></div>
                     <input type="text" class="form-control" name="search"
-                    placeholder="Informe uma palavra chave para a busca..."
+                    placeholder="Informe uma data para a busca..."
                     id="pesq">
                   </div>
                 </form>

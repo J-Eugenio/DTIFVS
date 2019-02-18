@@ -18,7 +18,7 @@ $usu_logado = $usu_inst->getUsuarioLogado();
   <!--[if IE]>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <![endif]-->
-  <title>Sistema de E-mail - DTI</title>
+  <title>Sistema de Notificações - DTI</title>
   <!-- BOOTSTRAP CORE STYLE  -->
   <link href="<?php echo URL_BASE ?>/css/bootstrap.css" rel="stylesheet" />
   <!-- FONT AWESOME ICONS  -->
@@ -90,41 +90,6 @@ $usu_logado = $usu_inst->getUsuarioLogado();
   <script src="<?php echo URL_BASE ?>/js/bootstrap.js"></script>
 
   <script type="text/javascript">
-
-  jQuery.validator.setDefaults({
-    debug: true,
-    success: "valid"
-  });
-
-  var msgFormUsuario = $('#form-suporte-equipamento').msgRapida();
-  var formUsuario = $("#form-suporte-equipamento");
-
-  formUsuario.validate({
-    rules: {
-	  titulo: {required: true},
-    },
-    messages:{
-	  titulo: { required: 'É necessário informar um Titulo.'},
-    },
-    errorClass: "alert alert-danger",
-    errorElement: "div",
-
-    submitHandler : function(form){
-      var dados = $(form).serialize();
-
-      $.ajax({
-        type: "POST",
-        url: "<?php echo URL_BASE;?>/control/bug-controle.php?acao=cadastrar-bug&ajax=true",
-        data: dados,
-        dataType: 'json',
-        success: function(res){
-          msgFormUsuario.abrir(res.result, res.mensagem);        
-        }
-      });
-
-      return false;
-    }
-  });
 
   </script>
 </body>
