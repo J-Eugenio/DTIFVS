@@ -3,6 +3,7 @@ include_once '../../config/config.php';
 include_once '../../config/Conexao.class.php';
 include_once '../../model/Usuario.class.php';
 include_once '../../model/Recurso.class.php';
+include_once '../../config/conexao.php';
 
 $usu_inst = new Usuario;
 $equip_inst = new Recurso;
@@ -170,7 +171,21 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
 				<div class="form-group">
                   <label>Selecione uma data:</label>
                   <input type="text" name="data" class="form-control" id="datepicker"/>
-                </div>
+        </div>
+        <div class="form-group">
+          <form action="processo.php" method="POST">
+            
+          </form>
+
+          <input type="text" id="var" class="form-control">
+          <?php
+            $campo = $_POST['var'];
+            $query = "SELECT tipo  FROM recurso";
+            $dados = mysqli_query($connect, $query);
+            $total = mysqli_fetch_row($dados);
+            echo "Quantidade Disponivel: ".$total[0];;
+          ?>
+        </div>
 		</div>
         </div>
 
@@ -555,9 +570,14 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
         e.preventDefault;
         var nome = $(this).closest('tr').find('td[data-nome]').data('nome');
         $("#equip-reservado").val(nome);
-        
+        $("#var").val(nome);      
     });
   });
+
+  function pegarValor(){
+    w=document.getElementById("var").value;
+    alert(w);
+  }
 
   $('#example_previous a').click(function(evt){
     formBusca.find('input[name=pagindice]').val(<?php echo $lista_equips['pagina_atual']-1 ?>);
