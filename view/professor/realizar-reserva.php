@@ -173,13 +173,9 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
                   <input type="text" name="data" class="form-control" id="datepicker"/>
         </div>
         <div class="form-group">
-          <form action="processo.php" method="POST">
-            
-          </form>
-
           <input type="text" id="var" class="form-control">
           <?php
-            $campo = $_POST['var'];
+            //
             $query = "SELECT tipo  FROM recurso";
             $dados = mysqli_query($connect, $query);
             $total = mysqli_fetch_row($dados);
