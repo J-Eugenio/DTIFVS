@@ -2,6 +2,7 @@
 include_once '../../config/config.php';
 include_once '../../config/Conexao.class.php';
 include_once '../../model/Usuario.class.php';
+include_once '../../config/conexao.php';
 
 $usu_inst = new Usuario;
 $usu_inst->redirecNaoAdm();
@@ -41,7 +42,7 @@ $usu_logado = $usu_inst->getUsuarioLogado();
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h1 class="page-head-line">Sistema de E-mails</h1>
+          <h1 class="page-head-line">Notificações</h1>
         </div>
       </div>
       <div class="row">
@@ -50,20 +51,27 @@ $usu_logado = $usu_inst->getUsuarioLogado();
         <div class="col-md-6">
           <div class="panel panel-primary">
             <div class="panel-heading">
-              Sistema de E-mails
+              Pendências
             </div>
             <div class="panel-body">
               <form method="post" action="processa_email.php">
-				        <div class="form-group">
-                  <label>Para: </label>
-                  <input type="text" name="para" class="form-control" placeholder="Informe o E-mail..."/>
-                  <label>Assunto: </label>
-                  <input type="text" name="assunto" class="form-control" placeholder="Informe a Assunto.."/>
-                   <label>Mensagem: </label>
-                  <textarea rows="4" cols="50" name="mensagem" class="form-control" placeholder="Digite sua Mensagem..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Enviar</button>
-                <button type="reset" class="btn btn-warning"><span class="fa fa-close"></span> Limpar</button>
+				        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="50%">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Equipamento</th>
+                    </tr>
+                  </thead>
+                  <tbody style="overflow: auto; height: 300px">
+                    <?php while($total = mysqli_fetch_row($dados)): ?>
+                      <tr>
+                        <td><?php echo $total[0]; ?></td>
+                        <td><?php echo $total[2];; ?></td>
+                      </tr>
+                    <?php endwhile; ?>
+                  </tbody>
+                </table>
+                <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Notificar</button>
               </form>
             </div>
           </div>

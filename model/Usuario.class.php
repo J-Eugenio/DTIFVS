@@ -162,6 +162,7 @@ class Usuario{
     }
   }
   
+  
   public function alterar($id, $senha2){
     try {
       $connect = $this->connect;

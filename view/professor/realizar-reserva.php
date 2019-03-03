@@ -173,13 +173,14 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
                   <input type="text" name="data" class="form-control" id="datepicker"/>
         </div>
         <div class="form-group">
-          <input type="text" id="var" class="form-control">
+          <input type="hidden" id="var" class="form-control">
           <?php
-            //
+            /*
             $query = "SELECT tipo  FROM recurso";
             $dados = mysqli_query($connect, $query);
             $total = mysqli_fetch_row($dados);
-            echo "Quantidade Disponivel: ".$total[0];;
+            echo "Quantidade Disponivel: ".$total[0];
+            */
           ?>
         </div>
 		</div>
