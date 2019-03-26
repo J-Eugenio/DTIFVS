@@ -9,9 +9,10 @@
 
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
+	$msg = $_POST['msg'];
 
-
-
+	$salvarMSG = "INSERT INTO notificacao (msg) VALUES ('$msg')";
+	mysqli_query($connect, $salvarMSG);
 	class Mensagem {
 		public $status = array('codigo_status' => null, 'descricao_status' => '');	
 	}
@@ -22,7 +23,7 @@
 	$mail = new PHPMailer(true);
 	try {
 	    
-	        
+	    
 	    while($total = mysqli_fetch_row($dados)){
 		    	//Server settings
 		    $mail->SMTPDebug = false; 
@@ -43,15 +44,17 @@
 			//Content
 	    	$mail->isHTML(true);                                  
 	    	$mail->Subject = 'Equipamento Pendente';
-	    	$mail->Body    = $total[2]." Esta com pendencia";
+	    	$mail->Body    = $msg;
 	    	$mail->AltBody = 'Ncessário utilizar um cliente que suporte todo o corpo da mensagem!';
 
 	    	$mail->send();
 
-	    	$mensagem->status['codigo_status'] = 1;
-	    	$mensagem->status['descricao_status'] = 'E-mail enviado com sucesso ao professor!';
+	    
+	    	
 		}
 
+		$mensagem->status['codigo_status'] = 1;
+	    $mensagem->status['descricao_status'] = 'E-mail enviado com sucesso ao professor!';
 	    //Attachments
 	    //$mail->addAttachment('/var/tmp/file.tar.gz');         
 	    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    
@@ -62,6 +65,8 @@
 	} catch (Exception $e) {
 		$mensagem->status['codigo_status'] = 2;
 		$mensagem->status['descricao_status'] =  'Este e-mail não foi enviado, por favor tente novamente. Detalhes do erro: ' .  $mail->ErrorInfo;
+		echo $mail->ErrorInfo."<br>";
+		echo var_dump($total[1]);
 	   
 	}
 

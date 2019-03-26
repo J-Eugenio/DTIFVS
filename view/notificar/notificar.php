@@ -55,6 +55,11 @@ $usu_logado = $usu_inst->getUsuarioLogado();
             </div>
             <div class="panel-body">
               <form method="post" action="processa_email.php">
+                <div class="form-group">
+                  <label>Mensagem:</label> 
+                  <input type="text" name="msg" class="form-control" placeholder="Mensagem" value="<?php 
+                  echo GetUltMsg();?>">               
+                </div>
 				        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="50%">
                   <thead>
                     <tr>

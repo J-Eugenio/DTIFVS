@@ -16,4 +16,12 @@
 	WHERE r.data < current_date() and entregue = 1 and devolucao = 0';
 
 	$dados = mysqli_query($connect, $query);
+
+	function GetUltMsg(){
+		$connect = $GLOBALS['connect']; 
+		$rSQL = "SELECT * FROM notificacao GROUP BY id DESC LIMIT 1;"; 
+        $resultado = mysqli_query($connect, $rSQL); 
+        $re = mysqli_fetch_array($resultado);
+        return $re[1];
+	}
 ?>

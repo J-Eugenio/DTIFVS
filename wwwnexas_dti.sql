@@ -135,11 +135,20 @@ CREATE TABLE `usuario` (
   `nivel` int(2) NOT NULL,
   `acesso` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `notificação`
+--
+
+CREATE TABLE `notificacao` (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `msg` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
-
 --
 -- Indexes for table `bug`
 --
