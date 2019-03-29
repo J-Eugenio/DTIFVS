@@ -153,6 +153,7 @@ class Recurso{
     }
   }
 
+  
    public function buscarPendencia($termo, $res_por_pagina = 20, $pagina_atual = 1){
     try {
       $connect = $this->conn;
@@ -173,6 +174,7 @@ class Recurso{
       return null;
     }
   }
+  
   public function excluirRecurso($id){
     try {
       $connect = $this->conn;

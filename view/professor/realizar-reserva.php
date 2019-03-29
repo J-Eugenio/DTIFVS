@@ -13,10 +13,17 @@ $usu_inst->redirecNaoProfessor();
 $usu_logado = $usu_inst->getUsuarioLogado();
 
 $pagindice = isset($_GET['pagindice']) ? $_GET['pagindice'] : 1;
-
+$equip = "HDMI";
 $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['termo'], 10, $pagindice);
+//buscarQtdDisponivel
+//$lista_equips2 = $equip_inst->buscarQtdDisponivel($equip, 10, $pagindice);
+//var_dump($result);
+$QtdDisponivel = 0;
+
+
 
 ?>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -89,16 +96,22 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
                     <tr>
                       <th>Nome do equipamento</th>
                       <th>Descrição</th>
-                      <th>Quantidade</th>
+                      <th>Quantidade Disponivel</th>
                       <th class="text-center">Ações</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($lista_equips['resultados'] as $equip_row): ?>
+                    <?php foreach ($lista_equips['resultados'] as $equip_row): 
+                      for ($i=0; $i < sizeof($result); $i++) { 
+                         if($result[$i]['id'] == $equip_row['id']){
+                            $QtdDisponivel = $result[$i]['Quantidade Disponível'];
+                         }
+                      }
+                      ?>
                       <tr>
                         <td data-nome="<?php echo $equip_row['nome']; ?>"><?php echo $equip_row['nome']; ?></td>
                         <td><?php echo $equip_row['descricao']; ?></td>
-                        <td><?php echo $equip_row['quantidade']; ?></td>
+                        <td><?php echo $QtdDisponivel; ?></td>
                         <td class="text-center">
                           <a href="<?php echo $equip_row['id']; ?>"
                             class="btn btn-sm btn-primary reservar-equip">
@@ -108,6 +121,7 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
                       <?php endforeach; ?>
                     </tbody>
                   </table>
+
                 </div>
               </div>
               <div class="panel-footer">
@@ -173,7 +187,6 @@ $lista_equips = $equip_inst->buscarRecursos(empty($_GET['termo']) ? '' : $_GET['
                   <input type="text" name="data" class="form-control" id="datepicker"/>
         </div>
         <div class="form-group">
-          <input type="hidden" id="var" class="form-control">
           <?php
             /*
             $query = "SELECT tipo  FROM recurso";

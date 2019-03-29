@@ -24,4 +24,13 @@
         $re = mysqli_fetch_array($resultado);
         return $re[1];
 	}
+
+
+    $conn = new PDO('mysql:host=localhost;dbname=wwwnexas_dti', $usuario, $senha);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
+    $data = $conn->query("SELECT rec.id AS id, rec.nome, rec.quantidade AS 'Quantidade Original', (rec.quantidade - (select count(equipamento) from reserva where entregue = 1 and devolucao = 0 and equipamento = rec.id)) as 'Quantidade Disponível' from reserva as res inner join recurso as rec on rec.id = res.equipamento GROUP BY equipamento");
+    $result = $data->fetchAll(PDO::FETCH_ASSOC);
+  
+    
 ?>
