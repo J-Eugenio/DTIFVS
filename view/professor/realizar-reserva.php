@@ -80,7 +80,7 @@ $QtdDisponivel = 0;
             </div>
             <div class="panel-body">
               <div class="col-md-12 form-group">
-                <form action="" method="get" id="form-busca">
+                <form action="" method="POST" id="form-busca">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon"><span class="fa fa-search"></span></div>
                     <input type="hidden" name="pagindice" value="1">
@@ -96,7 +96,6 @@ $QtdDisponivel = 0;
                     <tr>
                       <th>Nome do equipamento</th>
                       <th>Descrição</th>
-                      <th>Quantidade Disponivel</th>
                       <th class="text-center">Ações</th>
                     </tr>
                   </thead>
@@ -109,9 +108,9 @@ $QtdDisponivel = 0;
                       }
                       ?>
                       <tr>
+                       <td style="display:none;" data-id="<?php echo $equip_row['id']; ?>"><?php echo $equip_row['id']; ?></td>
                         <td data-nome="<?php echo $equip_row['nome']; ?>"><?php echo $equip_row['nome']; ?></td>
                         <td><?php echo $equip_row['descricao']; ?></td>
-                        <td><?php echo $QtdDisponivel; ?></td>
                         <td class="text-center">
                           <a href="<?php echo $equip_row['id']; ?>"
                             class="btn btn-sm btn-primary reservar-equip">
@@ -164,6 +163,7 @@ $QtdDisponivel = 0;
         <div class="form-group">
           <label>Equipamento:</label>
           <input type="text" id="equip-reservado" class="form-control" disabled>
+              <input type="hidden" id="id_equips" class="form-control" disabled>
         </div>
         <div class="form-group">
 		  <label>Selecione o Campus:</label>
@@ -184,17 +184,9 @@ $QtdDisponivel = 0;
 				</div>
 				<div class="form-group">
                   <label>Selecione uma data:</label>
-                  <input type="text" name="data" class="form-control" id="datepicker"/>
+                  <input type="text" name="data" class="form-control" id="datepicker" autocomplete="off"/>
         </div>
         <div class="form-group">
-          <?php
-            /*
-            $query = "SELECT tipo  FROM recurso";
-            $dados = mysqli_query($connect, $query);
-            $total = mysqli_fetch_row($dados);
-            echo "Quantidade Disponivel: ".$total[0];
-            */
-          ?>
         </div>
 		</div>
         </div>
@@ -423,6 +415,132 @@ $QtdDisponivel = 0;
                   </select>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <span id="resultado_qtd"></span>
+                </div>
+              </div>
+              <script type="text/javascript">
+		$(function(){
+                    
+			$('.carregando').hide();
+			$('#turno').change(function(){
+				if( $(this).val() ) {
+					$('#resultado_qtd').hide();
+					$.getJSON('refresh.php?search=',
+                                        {
+                                            id: $('#id_equips').val(),
+                                            turno: $('#turno').val(),
+                                            campus: $('#campus').val(),
+                                            datepicker: $('#datepicker').val(),
+                                            horainicio: $('#horainicio').val(),
+                                            
+                                        
+                                        }
+                                        , function(j){
+						var valor = '';	
+						valor = 'Quantidade Disponivel: ' + j[0].qtd;	
+						$('#resultado_qtd').html(valor).show();
+					});
+				} else {
+					$('.carregando').hide();
+					$('#resultado_qtd').html('Nenhuma Registro emcontrado');
+				}
+			});
+                        $('#campus').change(function(){
+				if( $(this).val() ) {
+					$('#resultado_qtd').hide();
+					$.getJSON('refresh.php?search=',
+                                        {
+                                            id: $('#id_equips').val(),
+                                            turno: $('#turno').val(),
+                                            campus: $('#campus').val(),
+                                            datepicker: $('#datepicker').val(),
+                                            horainicio: $('#horainicio').val(),
+                                            
+                                        
+                                        }
+                                        , function(j){
+						var valor = '';	
+						valor = 'Quantidade Disponivel: ' + j[0].qtd;	
+						$('#resultado_qtd').html(valor).show();
+					});
+				} else {
+					$('.carregando').hide();
+					$('#resultado_qtd').html('Nenhuma Registro emcontrado');
+				}
+			});  
+                        $('#datepicker').change(function(){
+				if( $(this).val() ) {
+					$('#resultado_qtd').hide();
+					$.getJSON('refresh.php?search=',
+                                        {
+                                            id: $('#id_equips').val(),
+                                            turno: $('#turno').val(),
+                                            campus: $('#campus').val(),
+                                            datepicker: $('#datepicker').val(),
+                                            horainicio: $('#horainicio').val(),
+                                            
+                                        
+                                        }
+                                        , function(j){
+						var valor = '';	
+						valor = 'Quantidade Disponivel: ' + j[0].qtd;	
+						$('#resultado_qtd').html(valor).show();
+					});
+				} else {
+					$('.carregando').hide();
+					$('#resultado_qtd').html('Nenhuma Registro emcontrado');
+				}
+			});
+                        $('#horainicio').change(function(){
+				if( $(this).val() ) {
+					$('#resultado_qtd').hide();
+					$.getJSON('refresh.php?search=',
+                                        {
+                                            id: $('#id_equips').val(),
+                                            turno: $('#turno').val(),
+                                            campus: $('#campus').val(),
+                                            datepicker: $('#datepicker').val(),
+                                            horainicio: $('#horainicio').val(),
+
+                                        
+                                        }
+                                        , function(j){
+						var valor = '';	
+						valor = 'Quantidade Disponivel: ' + j[0].qtd;	
+						$('#resultado_qtd').html(valor).show();
+					});
+				} else {
+					$('.carregando').hide();
+					$('#resultado_qtd').html('Nenhuma Registro emcontrado');
+				}
+			});
+                        $('#horafim').change(function(){
+				if( $(this).val() ) {
+					$('#resultado_qtd').hide();
+					$.getJSON('refresh.php?search=',
+                                        {
+                                            id: $('#id_equips').val(),
+                                            turno: $('#turno').val(),
+                                            campus: $('#campus').val(),
+                                            datepicker: $('#datepicker').val(),
+                                            horainicio: $('#horainicio').val(),
+                                           
+                                        
+                                        }
+                                        , function(j){
+						var valor = '';	
+						valor = 'Quantidade Disponivel: ' + j[0].qtd;	
+						$('#resultado_qtd').html(valor).show();
+					});
+				} else {
+					$('.carregando').hide();
+					$('#resultado_qtd').html('Nenhuma Registro emcontrado');
+				}
+			});
+		});
+		</script>
             </div>
             <div class="row">
               <div class="col-md-6">
@@ -551,11 +669,12 @@ $QtdDisponivel = 0;
   <script src="<?php echo URL_BASE; ?>/js/jquery.validate.min.js"></script>
   <script src="<?php echo URL_BASE; ?>/js/jquery.mask.js"></script>
   <script type="text/javascript">
+  
 
   $('.campo-horario').mask('00:00');
 
   $("#datepicker").datepicker({
-      dateFormat: 'dd/mm/yy',
+      dateFormat: 'yy/mm/dd',
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
       dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
       dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
@@ -573,14 +692,21 @@ $QtdDisponivel = 0;
     idSelecEquip = $(this).attr('href');
     formReserva.find('input[name=equipamento]').val(idSelecEquip);
     $('#modal-conf-exc-equip').modal('show');
+    $('#modal-conf-exc-equip').on('hidden.bs.modal', function() {
+    console.log('fechar modal')
+    $(this).find('input:text').val('');
+    $(this).find('select').val('');
+    location.reload();
+  });
     evt.preventDefault();
   });
   $(function(){
     $(document).on('click', '.reservar-equip', function(e) {
         e.preventDefault;
         var nome = $(this).closest('tr').find('td[data-nome]').data('nome');
+        var id = $(this).closest('tr').find('td[data-id]').data('id');
         $("#equip-reservado").val(nome);
-        $("#var").val(nome);      
+        $("#id_equips").val(id);      
     });
   });
 

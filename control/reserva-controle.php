@@ -15,9 +15,9 @@ if($usuario_inst->possuiAcessoProfessor()){
   switch ($acao) {
     case 'atualiza-reserva':
 
-    $data = DateTime::createFromFormat('d/m/Y', $_POST['data']);
+    $data = DateTime::createFromFormat('Y/m/d', $_POST['data']);
 
-    $data_reserva = $data->format('Y-m-d');
+    $data_reserva = $data->format('Y/m/d');
 
     $dados = array(
       'campus' => $_POST['campus'],
