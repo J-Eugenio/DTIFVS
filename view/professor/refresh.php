@@ -16,8 +16,7 @@
                             AND res.data = '$data'
                             AND res.campus = '$campus'
                             AND res.horainicio = '$horainicio'
-                            AND entregue = 1 
-                            AND devolucao = 0
+                            AND reserva = 1
                             AND equipamento = rec.id)) as 'Quantidade Disponível' 
 	FROM reserva AS res INNER JOIN recurso as rec on rec.id = res.equipamento WHERE res.equipamento = $id LIMIT 1;";
 

@@ -5,10 +5,7 @@
         <group>
             <file>file:/C:/xampp/htdocs/dti/control/reserva-controle.php</file>
             <file>file:/C:/xampp/htdocs/dti/view/professor/realizar-reserva.php</file>
-            <file>file:/C:/xampp/htdocs/dti/model/Reserva.class.php</file>
-            <file>file:/C:/xampp/htdocs/dti/view/usuario/pagina-usuario.php</file>
-            <file>file:/C:/xampp/htdocs/dti/view/professor/alterar-senha.php</file>
-            <file>file:/C:/xampp/htdocs/dti/view/professor/minhas-reservas.php</file>
+            <file>file:/C:/xampp/htdocs/dti/view/professor/refresh.php</file>
         </group>
     </open-files>
 </project-private>

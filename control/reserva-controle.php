@@ -27,7 +27,8 @@ if($usuario_inst->possuiAcessoProfessor()){
       'data' => $data_reserva,
       'horainicio' => $_POST['horainicio'],
       'horafim' => $_POST['horafim'],
-      'usuario' => $usuario_inst->getIDUsuarioLogado()
+      'usuario' => $usuario_inst->getIDUsuarioLogado(),
+      'reserva' => 1
     );
 
     $equipDisp = $reserva_inst->podeRealizarReserva(

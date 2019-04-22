@@ -16,8 +16,8 @@ class Reserva{
       $conn = $this->conn;
       $conec = $conn->getConexao();
 
-      $prep = $conec->prepare('INSERT INTO reserva (sala, turno, usuario, campus, data, equipamento, horainicio, horafim)'.
-      'VALUES (:sala, :turno, :usuario, :campus, :data, :equipamento, :horainicio, :horafim)');
+      $prep = $conec->prepare('INSERT INTO reserva (sala, turno, usuario, campus, data, equipamento, horainicio, horafim, reserva)'.
+      'VALUES (:sala, :turno, :usuario, :campus, :data, :equipamento, :horainicio, :horafim, :reserva)');
 
       foreach ($dados as $chave => $valor) {
         $prep->bindValue(':'.$chave, $valor);
