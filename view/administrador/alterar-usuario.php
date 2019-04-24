@@ -11,6 +11,7 @@ $usu_logado = $usu_inst->getUsuarioLogado();
 
 if(isset($_GET['id'])){
   $usuario_selec = $usu_inst->getUsuarioPorId($_GET['id']);
+
 }
 ?>
 <!DOCTYPE html>

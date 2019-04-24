@@ -191,7 +191,7 @@ class Usuario{
       $connect = $this->connect;
       $conn = $connect->getConexao();
 
-      $prep = $conn->prepare('SELECT email, nome, cpf FROM usuario WHERE id=? LIMIT 1');
+      $prep = $conn->prepare('SELECT login,senha,email,nome,cpf FROM usuario WHERE id=? LIMIT 1');
       $prep->bindValue(1, $id);
 
       $prep->execute();
