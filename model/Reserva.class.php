@@ -141,7 +141,7 @@ class Reserva{
       $prep = $conec->prepare('DELETE FROM devolucao WHERE reserva=?');
       $prep2 = $conec->prepare('INSERT INTO devolucao (usuario, reserva, datadevolucao, horadevolucao, devolucao) '.
       'VALUES (?, ?, CURRENT_DATE(), CURRENT_TIME(), ?)');
-      $prep3 = $conec->prepare('UPDATE reserva SET devolucao="1" WHERE id = ?');
+      $prep3 = $conec->prepare('UPDATE reserva SET devolucao="1", reserva = "0" WHERE id = ?');
       $prep->bindValue(1, $id);
 
       $prep2->bindValue(1, $_SESSION['USER_ID']);

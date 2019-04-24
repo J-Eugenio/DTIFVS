@@ -102,6 +102,7 @@ CREATE TABLE `reserva` (
   `campus` varchar(70) NOT NULL,
   `horainicio` varchar(10) NOT NULL,
   `horafim` varchar(10) NOT NULL,
+  `reserva` tinyint(1) NOT NULL,
   `entregue` tinyint(1) NOT NULL DEFAULT '0',
   `devolucao` tinyint(1) NOT NULL DEFAULT '0',
   `dataentregue` date NOT NULL,
