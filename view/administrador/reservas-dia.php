@@ -109,12 +109,10 @@ true);
                         <td><?php echo $res_row['sala']; ?></td>
 						<td><?php echo $res_row['horainicio']; ?></td>
 						<td><?php echo $res_row['horafim']; ?></td>
-                        <td>
-                          <?php $devolvido = !empty($res_row['idDevolucao']); ?>
-                           <button class="btn btn-<?php echo $devolvido ? 'success' : 'danger' ?>"
-                             style="width: 60px;">
-                              <span class="fa fa-<?php echo $devolvido ? 'check' : 'remove' ?>"></span>
-                           </button>
+                        <td class="text-center">
+                        <a href="<?php echo $res_row['id']; ?>" class="btn btn-sm btn-danger excluir-reserva">
+                        <span class="fa fa-trash"></span> Cancelar</a>
+                        <a href="<?php echo URL_BASE;?>/view/administrador/reservas-dia.php">
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -122,6 +120,30 @@ true);
                 </table>
               </div>
             </div>
+  <div class="modal fade" id="modal-conf-exc-reserva" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar exclusão da reserva</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Tem certeza que deseja excluir esta reserva?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-confirma-exclusao-reserva" class="btn btn-success">
+          <span class="fa fa-check"></span> Sim</button>
+        <button class="btn btn-danger" data-dismiss="modal">
+          <span class="fa fa-close"></span> Não</button>
+      </div>
+    </div>
+  </div>
+</div>
             <div class="panel-footer">
               <ul class="pagination" style="margin: 0;">
                 <li class="paginate_button previous <?php echo $lista_equips['primeira_pag'] ? 'disabled' : '' ?>"
@@ -234,12 +256,6 @@ true);
     var formReserva = $('#form-cadastro-reserva');
     var idSelecEquip;
 
-    $('.reservar-equip').click(function(evt){
-      idSelecEquip = $(this).attr('href');
-      formReserva.find('input[name=equipamento]').val(idSelecEquip);
-      $('#modal-conf-exc-equip').modal('show');
-      evt.preventDefault();
-    });
 
     $('#example_previous a').click(function(evt){
       formBusca.find('input[name=pagindice]').val(<?php echo $lista_equips['pagina_atual']-1 ?>);
@@ -253,6 +269,23 @@ true);
       evt.preventDefault();
     });
 
+    $('.excluir-reserva').click(function(evt){
+     idSelecReserva = $(this).attr('href');
+     $('#modal-conf-exc-reserva').modal('show');
+     evt.preventDefault();
+    });
+    $('#btn-confirma-exclusao-reserva').click(function(){
+     window.location.href = '<?php echo URL_BASE;?>'+
+     '/control/reserva-controle.php?acao=excluir-reserva&id='+idSelecReserva;
+    
+    $('.reservar-equip').click(function(evt){
+      idSelecEquip = $(this).attr('href');
+      formReserva.find('input[name=equipamento]').val(idSelecEquip);
+      $('#modal-conf-exc-equip').modal('show');
+      evt.preventDefault();
+    });
+     });
+
     formReserva.validate({
       rules: {
         data: {required: true},
@@ -265,7 +298,7 @@ true);
       errorClass: "alert alert-danger",
       errorElement: "div",
 
-      submitHandler : function(form){
+        submitHandler : function(form){
         var dados = $(form).serialize();
 
         $.ajax({

@@ -110,9 +110,7 @@ class Reserva{
       'tb_res.usuario LEFT JOIN devolucao tb_dev ON tb_res.id = tb_dev.reserva WHERE '.
       '(tb_equip.nome LIKE? OR tb_prof.nome LIKE?) AND tb_dev.idDevolucao IS NULL';
 
-      if($apenas_reservas_hoje){
-        $query .= ' AND tb_res.data = CURRENT_DATE()';
-      }
+      
 	  $query .= ' AND tb_res.entregue = 0';
 	  $query .= ' ORDER BY tb_res.data DESC';
 
