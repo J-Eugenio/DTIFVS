@@ -120,30 +120,6 @@ true);
                 </table>
               </div>
             </div>
-  <div class="modal fade" id="modal-conf-exc-reserva" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Confirmar exclusão da reserva</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>
-          Tem certeza que deseja excluir esta reserva?
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button id="btn-confirma-exclusao-reserva" class="btn btn-success">
-          <span class="fa fa-check"></span> Sim</button>
-        <button class="btn btn-danger" data-dismiss="modal">
-          <span class="fa fa-close"></span> Não</button>
-      </div>
-    </div>
-  </div>
-</div>
             <div class="panel-footer">
               <ul class="pagination" style="margin: 0;">
                 <li class="paginate_button previous <?php echo $lista_equips['primeira_pag'] ? 'disabled' : '' ?>"
@@ -227,7 +203,30 @@ true);
         </div>
       </div>
     </div>
-
+      <div class="modal fade" id="modal-conf-exc-reserva" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar exclusão da reserva</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Tem certeza que deseja excluir esta reserva?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-confirma-exclusao-reserva" class="btn btn-success">
+          <span class="fa fa-check"></span> Sim</button>
+        <button class="btn btn-danger" data-dismiss="modal">
+          <span class="fa fa-close"></span> Não</button>
+      </div>
+    </div>
+  </div>
+</div>
     <footer>
       <div class="container">
         <div class="row">

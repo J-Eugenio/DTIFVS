@@ -73,8 +73,8 @@
                       if($usu_inst->possuiAcessoAdm()):
                         ?>
 
-                        <li><a href="<?php echo URL_BASE ?>/view/administrador/reservas-dia.php">
-                          <i class="fa fa-calendar" aria-hidden="true"></i><span> Reservas para hoje</span></a></li>
+                        <li><a href="<?php echo URL_BASE ?>/view/professor/minhas-reservas.php">
+                        <i class="fa fa-bars" aria-hidden="true"></i><span> Minhas Reservas</span></a></li>
 						            <li><a href="<?php echo URL_BASE ?>/view/administrador/cadastro-usuario.php">
                           <i class="fa fa-users" aria-hidden="true"></i><span> Cadastrar Usuário</span></a></li>
                         <li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-equipamento.php">

@@ -81,6 +81,17 @@ if($usuario_inst->possuiAcessoProfessor()){
 
 if($usuario_inst->possuiAcessoAdm()){
   switch ($acao) {
+    case 'excluir-reserva':
+
+    $res = $reserva_inst->excluirReserva($_GET['id']);
+
+    if($ajax){
+      echo json_encode($res);
+    } else {
+    header('Location: '.URL_BASE.'\view\administrador\reservas-dia.php');
+    }
+
+    break;
     case 'busca-reservas':
     $res = $reserva_inst->buscarReservas($_POST['termo'], 15, 1, false);
 

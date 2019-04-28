@@ -74,7 +74,7 @@
 										<li><a class="menu-top-active" href="<?php echo URL_BASE ?>/view/usuario/pagina-usuario.php">
                         <i class="fa fa-home" aria-hidden="true"></i><span> Página inicial</span></a></li>
                     <li><a href="<?php echo URL_BASE ?>/view/administrador/reservas-dia.php">
-                        <i class="fa fa-calendar" aria-hidden="true"></i><span> Reservas para hoje</span></a></li>
+                        <i class="fa fa-calendar" aria-hidden="true"></i><span> Reservas</span></a></li>
 						        <li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-usuarios.php">
 						            <i class="fa fa-users" aria-hidden="true"></i><span> Usuários</span></a></li>
                     <li><a href="<?php echo URL_BASE ?>/view/administrador/buscar-equipamento.php">

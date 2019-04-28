@@ -136,11 +136,11 @@ class Recurso{
       $conn = $connect->getConexao();
 
       $prep = $conn->prepare('SELECT tab_rec.* FROM recurso tab_rec'.
-      ' WHERE (tab_rec.nome LIKE? OR tab_rec.descricao LIKE?)');
+      ' WHERE (tab_rec.nome LIKE? OR tab_rec.descricao LIKE? OR tab_rec.campus LIKE?)');
 
       $prep->bindValue(1, '%'.$termo.'%');
       $prep->bindValue(2, '%'.$termo.'%');
-
+      $prep->bindValue(3, '%'.$termo.'%');
       $prep->execute();
 
       $res_fetch = $prep->fetchAll(PDO::FETCH_ASSOC);

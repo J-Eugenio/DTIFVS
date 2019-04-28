@@ -80,13 +80,17 @@ $QtdDisponivel = 0;
             </div>
             <div class="panel-body">
               <div class="col-md-12 form-group">
-                <form action="" method="POST" id="form-busca">
+                <form action="" method="get" id="form-busca">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon"><span class="fa fa-search"></span></div>
                     <input type="hidden" name="pagindice" value="1">
-                    <input type="text" class="form-control" name="termo"
-                    placeholder="Informe uma palavra chave para a busca..."
-                    value="<?php echo isset($_GET['termo']) ? $_GET['termo'] : '' ?>">
+                    <select onchange="this.form.submit()" name="termo" autocomplete="off" class="form-control">
+                      <option value=" "></option>
+                      <option value="Anexo">Principal</option>
+                      <option value="Anexo">Anexo</option>
+                      <option value="Clínica">Clínica Escola</option>
+                      <option value=" ">Todos</option>
+                    </select>
                   </div>
                 </form>
               </div>
@@ -486,6 +490,9 @@ $QtdDisponivel = 0;
                                         , function(j){
 						var valor = '';	
 						valor = 'Quantidade Disponivel: ' + j[0].qtd;	
+            if(j[0].qtd == 0){
+              document.getElementById("btn-confirma-exclusao-equip").disabled = true; 
+            }
 						$('#resultado_qtd').html(valor).show();
 					});
 				} else {
@@ -497,7 +504,7 @@ $QtdDisponivel = 0;
 				if( $(this).val() ) {
 					$('#resultado_qtd').hide();
 					$.getJSON('refresh.php?search=',
-                                        {
+           {
                                             id: $('#id_equips').val(),
                                             turno: $('#turno').val(),
                                             campus: $('#campus').val(),
@@ -510,6 +517,7 @@ $QtdDisponivel = 0;
 						var valor = '';	
 						valor = 'Quantidade Disponivel: ' + j[0].qtd;	
 						$('#resultado_qtd').html(valor).show();
+
 					});
 				} else {
 					$('.carregando').hide();
@@ -645,7 +653,7 @@ $QtdDisponivel = 0;
           }
           </script>
           <div class="modal-footer">
-            <button id="btn-confirma-exclusao-equip" class="btn btn-success">
+            <button id="btn-confirma-exclusao-equip" class="btn btn-success btn-concluir-cc">
               <span class="fa fa-check"></span> Concluir</button>
             <button class="btn btn-warning" data-dismiss="modal">
               <span class="fa fa-close"></span> Cancelar</button>
@@ -706,10 +714,13 @@ $QtdDisponivel = 0;
         var nome = $(this).closest('tr').find('td[data-nome]').data('nome');
         var id = $(this).closest('tr').find('td[data-id]').data('id');
         $("#equip-reservado").val(nome);
-        $("#id_equips").val(id);      
+        $("#id_equips").val(id);   
+
     });
   });
-
+  $('.btn-concluir-cc').click(function(evt){
+     $('#modal-conf-exc-equip').modal('hide');
+  });
   function pegarValor(){
     w=document.getElementById("var").value;
     alert(w);
