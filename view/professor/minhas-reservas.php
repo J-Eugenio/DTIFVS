@@ -102,7 +102,7 @@ $pagindice);
                         <td><?php echo date("d/m/Y", strtotime($res_row['data'])); ?></td>
                         <td><?php echo $res_row['equip_nome']; ?></td>
                         <td><?php echo $res_row['campus']; ?></td>
-                        <td><?php echo $res_row['usuario']; ?></td>
+                        <td><?php echo $res_row['sala']; ?></td>
 						            <td class="text-center">
                         <a href="<?php echo $res_row['id']; ?>" class="btn btn-sm btn-danger excluir-reserva">
                         <span class="fa fa-trash"></span> Cancelar</a>
