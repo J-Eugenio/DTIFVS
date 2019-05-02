@@ -96,7 +96,7 @@ true);
                       <th>Sala</th>
 					  <th>Horário Entrega</th>
 					  <th>Horário Devolução</th>
-                      <th style="width: 80px;">Devolvido</th>
+                      <th style="width: 100px;">Devolvido</th>
                     </tr>
                   </thead>
                   <tbody>
