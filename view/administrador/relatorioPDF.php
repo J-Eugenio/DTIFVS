@@ -36,7 +36,7 @@ require_once("dompdf/autoload.inc.php");
 
         $lista_equips = mysqli_query($connect, $query);
 foreach ($lista_equips as $equip_row):
-    if($equip_row['entregue'] == 1 && $equip_row['devolucao'] == 0):
+    if($equip_row['entregue'] == 1 && $equip_row['devolucao'] == 1):
         $html .= '<tr><td>'.$equip_row['userName']. "</td>";
         $html .= '<td>'.$equip_row['nome']. "</td>";
         $html .= '<td>'.$equip_row['data']. "</td>";

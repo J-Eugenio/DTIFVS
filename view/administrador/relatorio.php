@@ -114,7 +114,7 @@ $lista_equips = mysqli_query($connect, $query);
                   </thead>
                   <tbody style="overflow: auto; height: 300px">
                     <?php foreach ($lista_equips as $equip_row): ?>
-                      <?php if($equip_row['entregue'] == 1 && $equip_row['devolucao'] == 0): ?>
+                      <?php if($equip_row['devolucao'] == 1 && $equip_row['entregue'] == 1): ?>
                       <tr>
                         <td><?php echo $equip_row['userName']; ?></td>
                         <td><?php echo $equip_row['nome']; ?></td>

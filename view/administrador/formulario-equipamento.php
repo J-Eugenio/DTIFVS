@@ -84,9 +84,9 @@ if(isset($_GET['idrecurso'])){
 				<div class="form-group">
 				<label>Selecione o Campus:</label>
 				<select class ="form-control" name = "campus" id ="campus">
-					<option value="<?php echo isset($recurso_selec) ? $recurso_selec['campus'] : 'Prédio Principal / Anexo' ?>"></option>
-						<option value="<?php echo isset($recurso_selec) ? $recurso_selec['campus'] : 'Prédio Principal / Anexo' ?>">Prédio Principal / Anexo</option>
-						<option value="<?php echo isset($recurso_selec) ? $recurso_selec['campus'] : 'Clínica Escola' ?>">Clínica Escola</option>
+					<option selected disabled hidden>Selecione um campus</option>
+						<option value="Prédio Principal / Anexo"<?php if(isset ($recurso_selec) && ($recurso_selec['campus']) == 'Prédio Principal / Anexo'){ echo "selected";} ?>>Prédio Principal / Anexo</option>
+						<option value="Clínica Escola" <?php if(isset ($recurso_selec) && ($recurso_selec['campus']) == 'Clínica Escola'){ echo "selected";} ?>>Clínica Escola</option>
 				</select>
 				</div>
                 <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Salvar</button>
