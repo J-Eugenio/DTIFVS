@@ -10,5 +10,6 @@
 <a href="https://github.com/J-Eugenio/dti/graphs/commit-activity"><img alt="Maintained" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" height="20"/></a>
 </p>
 <p> Sistema de reserva de Equipamento desenvolvido em PHP, JS. </p>
-<p align="center"><img alt="mapa" src="https://github.com/J-Eugenio/ProjetoTasks/blob/master/App/taks.jpg?raw=true"/></p>
+<p align="center"><img alt="mapa" src="https://github.com/J-Eugenio/dti/blob/master/assets/1.PNG?raw=true"/></p>
+<p align="center"><img alt="mapa" src="https://github.com/J-Eugenio/dti/blob/master/assets/2.PNG?raw=true"/></p>
 
